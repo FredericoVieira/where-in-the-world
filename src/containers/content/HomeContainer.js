@@ -4,6 +4,7 @@ import { setCountries } from '../../actions/countries'
 import Home from '../../components/content/Home'
 import requester from '../../resources/requester'
 
+
 const mapStateToProps = (state) => {
   return {
     countries: state.countries,
@@ -12,7 +13,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = dispatch => ({
   fetchCountries: async () => {
-    const [error, response] = await requester('GET', 'all?fields=name;population;capital;region')
+    const [error, response] = await requester('GET', 'all?fields=name;population;region;capital')
     dispatch(setCountries(response.data))
   }
 })

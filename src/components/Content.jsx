@@ -1,7 +1,7 @@
 import React from 'react'
 import { Switch, Route } from 'react-router-dom'
 import HomeContainer from '../containers/content/HomeContainer'
-import Country from './content/Country'
+import CountryContainer from '../containers/content/CountryContainer'
 
 
 class Content extends React.Component {
@@ -9,7 +9,7 @@ class Content extends React.Component {
     return (
       <Switch>
         <Route component={HomeContainer} exact path="/"/>
-        <Route component={Country} path="/country" />
+        <Route component={CountryContainer} path="/country/:country" />
       </Switch>
     )
   }
