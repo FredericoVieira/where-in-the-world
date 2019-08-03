@@ -4,10 +4,10 @@ import Content from './Content'
 
 
 const App = () => (
-  <main>
+  <>
     <NavBar />
     <Content />
-  </main>
+  </>
 )
 
 export default App
