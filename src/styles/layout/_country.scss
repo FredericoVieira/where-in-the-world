@@ -1,0 +1,44 @@
+.country {
+  background-color: $color-background;
+  padding: 0 60px;
+
+  .back {
+    margin-top: 50px;
+    margin-bottom: 35px;
+  }
+
+  .button {
+    color: $color-primary;
+    background-color: $color-white;
+
+    &__text {
+      margin-left: 10px;
+    }
+  }
+
+  .button:hover {
+    background-color: $color-white;
+  }
+
+  .border {
+    margin: 0px 5px;
+  }
+
+  .flag {
+    width: 100%;
+  }
+
+  .title {
+    font-size: 24px;
+    font-weight: 600;
+  }
+
+  .block {
+    margin: 10px 0px;
+    font-size: 16px;
+    
+    .info {
+      font-weight: 600;
+    }
+  }
+}

@@ -1,5 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faArrowLeft} from '@fortawesome/free-solid-svg-icons'
 
 
 class Country extends React.Component {
@@ -8,36 +10,64 @@ class Country extends React.Component {
   }
 
   render() {
-    const { country, match } = this.props
+    const { country, handleBorder } = this.props
 
-    const handleCountryBorders = (border) => <span key={border}>{border} - </span>
+    const handleBorders = (border) => <Link
+      key={border}
+      className="btn button border"
+      to={`/country/${border}`}
+      onClick={() => handleBorder(border)}
+    >
+      {border}
+    </Link>
     
     return (
       <section className="country">
-        <Link to="/">
-          BACK TO HOME
-        </Link>
-        {
-          'name' in country ?
-            <>
-              <span className="card-title grey-text text-darken-4">
+        <div className="row back">
+          <div className="col s12">
+            <Link className="btn button" to="/">
+              <FontAwesomeIcon icon={faArrowLeft} size="lg"/> <span className="button__text">Back</span>
+            </Link>
+          </div>
+        </div>
+        { 'name' in country ?
+        <>
+          <div className="row">
+            <div className="col s12 m6">
+              <img className="flag" src={country.flag} />
+            </div>
+            <div className="col s12 m5 offset-m1">
+              <span className="title">
                 {country.name}
               </span>
-              <p>
-                {country.nativeName}
+              <p className="block">
+                <span className="info">Native Name: </span>{country.nativeName}
               </p>
-              <p>
-                {country.region}
+              <p className="block">
+                <span className="info">Population: </span>{country.population}
               </p>
-              <p>
-                {country.subregion}
+              <p className="block">
+                <span className="info">Region: </span>{country.region}
               </p>
-              <p>
-                {country.capital}
+              <p className="block">
+                <span className="info">Capital: </span>{country.capital}
               </p>
-              {country.borders.map(border => handleCountryBorders(border))}
-          </> : null
-      }
+              <p className="block">
+                <span className="info">Top Level Domain: </span>{country.topLevelDomain.join(', ')}
+              </p>
+              <p className="block">
+                <span className="info">Currencies: </span>{country.currencies.map(currency => currency.name).join(',')}
+              </p>
+              <p className="block">
+                <span className="info">Languages: </span>{country.languages.map(language => language.name).join(', ')}
+              </p>
+              <p className="block">
+                <span className="info">Borders: </span>{country.borders.length > 0 ? country.borders.map(border => handleBorders(border)) : 'None'}
+              </p>
+              
+            </div>
+          </div>
+        </> : null }
     </section>
     )
   }

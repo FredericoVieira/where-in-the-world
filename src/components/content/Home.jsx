@@ -10,7 +10,7 @@ class Home extends React.Component {
   }
 
   render() {
-    const { handleSearchCountry, region, handleFilterRegion } = this.props
+    const { handleSearchCountry, region, handleFilterRegion, history } = this.props
     let { countries } = this.props
     const regionsFilter = [
       { value: '', label: 'All' },
@@ -66,10 +66,9 @@ class Home extends React.Component {
           <div className="row search-filter">
             <div className="col s12 m6 l5 xl5">
               <Search
-                inputBoxHeight="200px"
                 placeholder="Search for a country..."
                 data={countriesSearch}
-                onSelect={(selection) => handleSearchCountry(selection, this.props.history)}
+                onSelect={(selection) => handleSearchCountry(selection, history)}
               />
             </div>
             <div className="col s12 m6 l3 xl3 filter-float">

@@ -12,6 +12,11 @@
   }
 
   .card {
+    img {
+      height: 250px;
+      object-fit: cover;
+    }
+
     .card-content{
       color: $color-primary;
       
@@ -25,7 +30,6 @@
     } 
   }
 }
-
 
 // Search and filter components
 
