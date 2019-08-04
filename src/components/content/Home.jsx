@@ -41,17 +41,17 @@ class Home extends React.Component {
               <img src={country.flag} />
             </div>
             <div className="card-content">
-              <span className="card-title grey-text text-darken-4">
+              <span className="card-title">
                 {country.name}
               </span>
               <p>
-                {country.population}
+                <span className="card-info">Population: </span>{country.population}
               </p>
               <p>
-                {country.region}
+                <span className="card-info">Region: </span>{country.region}
               </p>
               <p>
-                {country.capital}
+                <span className="card-info">Capital: </span>{country.capital}
               </p>
             </div>
           </div>

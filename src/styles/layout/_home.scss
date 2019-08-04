@@ -10,7 +10,24 @@
       float: right;
     }
   }
+
+  .card {
+    .card-content{
+      color: $color-primary;
+      
+      .card-title {
+        font-weight: 600;
+      }
+      
+      .card-info {
+        font-weight: 600;
+      }
+    } 
+  }
 }
+
+
+// Search and filter components
 
 .styled-component__StyledInput-sc-1dsackt-0 {
   background-color: $color-white !important;
@@ -23,7 +40,13 @@
 }
 
 .styled-component__StyledInput-sc-1dsackt-0:focus {
-  box-shadow: none;
+  box-shadow: none !important;
+}
+
+.react-search-box-dropdown {
+  position: absolute;
+  z-index: 1;
+  margin-top: 75px;
 }
 
 .filter {

@@ -15,7 +15,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = dispatch => ({
   fetchCountries: async () => {
-    const [error, response] = await requester('GET', 'all?fields=flag;name;population;region;capital')
+    const [, response] = await requester('GET', 'all?fields=flag;name;population;region;capital')
     dispatch(setCountries(response.data))
   },
   handleSearchCountry: (selection, history) => history.push(`/country/${selection.value}`),
