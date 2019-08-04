@@ -24,3 +24,7 @@ yarn start
 ```
 
 Access localhost:8080 on your favorite browser
+
+### Also available in:
+
+https://where-in-the-world-fv.herokuapp.com/
