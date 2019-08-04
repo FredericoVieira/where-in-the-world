@@ -33,7 +33,7 @@ class Home extends React.Component {
       } else countriesEligibles = countries
       
       countriesSearch = countries.map(country => Object.assign({}, { key: country.name }, { value: country.name }))
-      countriesToShow = shuffle(countriesEligibles).slice(0,6)
+      countriesToShow = shuffle(countriesEligibles)
     }
 
     const handleCountry = (country) => (
