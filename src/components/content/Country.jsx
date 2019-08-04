@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeft} from '@fortawesome/free-solid-svg-icons'
 
+import { numberWithCommas } from '../../utils/formatter'
+
 
 class Country extends React.Component {
   componentWillMount() {
@@ -44,7 +46,7 @@ class Country extends React.Component {
                 <span className="info">Native Name: </span>{country.nativeName}
               </p>
               <p className="block">
-                <span className="info">Population: </span>{country.population}
+                <span className="info">Population: </span>{numberWithCommas(country.population)}
               </p>
               <p className="block">
                 <span className="info">Region: </span>{country.region}

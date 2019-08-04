@@ -1,7 +1,9 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import Search from 'react-search-box'
-import Select from 'react-select';
+import Select from 'react-select'
+
+import { numberWithCommas } from '../../utils/formatter'
 
 
 class Home extends React.Component {
@@ -45,7 +47,7 @@ class Home extends React.Component {
                 {country.name}
               </span>
               <p>
-                <span className="card-info">Population: </span>{country.population}
+                <span className="card-info">Population: </span>{numberWithCommas(country.population)}
               </p>
               <p>
                 <span className="card-info">Region: </span>{country.region}
