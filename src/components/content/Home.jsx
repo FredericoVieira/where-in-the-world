@@ -4,6 +4,7 @@ import Search from 'react-search-box'
 import Select from 'react-select'
 
 import { numberWithCommas } from '../../utils/formatter'
+import { shuffle } from '../../utils/shuffler'
 
 
 class Home extends React.Component {
@@ -12,8 +13,7 @@ class Home extends React.Component {
   }
 
   render() {
-    const { handleSearchCountry, region, handleFilterRegion, history } = this.props
-    let { countries } = this.props
+    const { countries, handleSearchCountry, region, handleFilterRegion, history } = this.props
     const regionsFilter = [
       { value: '', label: 'All' },
       { value: 'Africa', label: 'Africa' },
@@ -23,16 +23,17 @@ class Home extends React.Component {
       { value: 'Oceania', label: 'Oceania' }
     ]
 
-    let countriesLoaded, countriesSearch
+    let countriesEligibles, countriesToShow, countriesLoaded, countriesSearch
 
     if (countries.length > 0) {
       countriesLoaded = true
       
       if(region) {
-        countries = countries.filter(country => country.region === region)
-      }
+        countriesEligibles = countries.filter(country => country.region === region)
+      } else countriesEligibles = countries
       
       countriesSearch = countries.map(country => Object.assign({}, { key: country.name }, { value: country.name }))
+      countriesToShow = shuffle(countriesEligibles).slice(0,6)
     }
 
     const handleCountry = (country) => (
@@ -63,7 +64,7 @@ class Home extends React.Component {
     
     return (
       <section className="home">
-      {countriesLoaded ?
+      {countriesLoaded && countriesSearch && countriesToShow ?
         <>
           <div className="row search-filter">
             <div className="col s12 m6 l5 xl5">
@@ -84,7 +85,7 @@ class Home extends React.Component {
             </div>
           </div>
           <div className="row">
-            {countries.slice(0, 6).map(country => handleCountry(country))}
+            {countriesToShow.map(country => handleCountry(country))}
           </div>
         </> : null}
     </section>
