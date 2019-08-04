@@ -1,5 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import Search from 'react-search-box'
+import Select from 'react-select';
 
 
 class Home extends React.Component {
@@ -8,14 +10,35 @@ class Home extends React.Component {
   }
 
   render() {
-    const { countries } = this.props
+    const { handleSearchCountry, region, handleFilterRegion } = this.props
+    let { countries } = this.props
+    const regionsFilter = [
+      { value: '', label: 'All' },
+      { value: 'Africa', label: 'Africa' },
+      { value: 'Americas', label: 'Americas' },
+      { value: 'Asia', label: 'Asia' },
+      { value: 'Europe', label: 'Europe' },
+      { value: 'Oceania', label: 'Oceania' }
+    ]
+
+    let countriesLoaded, countriesSearch
+
+    if (countries.length > 0) {
+      countriesLoaded = true
+      
+      if(region) {
+        countries = countries.filter(country => country.region === region)
+      }
+      
+      countriesSearch = countries.map(country => Object.assign({}, { key: country.name }, { value: country.name }))
+    }
 
     const handleCountry = (country) => (
       <div key={country.name} className="col s12 m6 l4 xl3">
         <Link to={`/country/${country.name}`}>
           <div className="card">
             <div className="card-image">
-              IMG HERE
+              <img src={country.flag} />
             </div>
             <div className="card-content">
               <span className="card-title grey-text text-darken-4">
@@ -38,9 +61,31 @@ class Home extends React.Component {
     
     return (
       <section className="home">
-        <div className="row">
-          {countries.length > 0 ? countries.slice(0, 6).map(country => handleCountry(country)) : null}
-        </div>
+      {countriesLoaded ?
+        <>
+          <div className="row search-filter">
+            <div className="col s12 m6 l5 xl5">
+              <Search
+                inputBoxHeight="200px"
+                placeholder="Search for a country..."
+                data={countriesSearch}
+                onSelect={(selection) => handleSearchCountry(selection, this.props.history)}
+              />
+            </div>
+            <div className="col s12 m6 l3 xl3 filter-float">
+              <Select
+                className="filter" 
+                placeholder="Filter by Region"
+                value={region}
+                onChange={handleFilterRegion}
+                options={regionsFilter}
+              />
+            </div>
+          </div>
+          <div className="row">
+            {countries.slice(0, 6).map(country => handleCountry(country))}
+          </div>
+        </> : null}
     </section>
     )
   }
