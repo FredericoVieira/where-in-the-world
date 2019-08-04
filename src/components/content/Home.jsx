@@ -64,7 +64,7 @@ class Home extends React.Component {
     
     return (
       <section className="home">
-      {countriesLoaded && countriesSearch && countriesToShow ?
+      {countriesLoaded ?
         <>
           <div className="row search-filter">
             <div className="col s12 m6 l5 xl5">
