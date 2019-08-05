@@ -9,11 +9,11 @@ import { shuffle } from '../../utils/shuffler'
 
 class Home extends React.Component {
   componentWillMount() {
-    this.props.fetchCountries()
+    if (this.props.countries.length === 0) this.props.fetchCountries()
   }
 
   render() {
-    const { countries, handleSearchCountry, region, handleFilterRegion, history } = this.props
+    const { countries, handleSearchCountry, region, handleFilterRegion, history, handleSelectCountry } = this.props
     const regionsFilter = [
       { value: '', label: 'All' },
       { value: 'Africa', label: 'Africa' },
@@ -38,7 +38,7 @@ class Home extends React.Component {
 
     const handleCountry = (country) => (
       <div key={country.name} className="col s12 m6 l4 xl3">
-        <Link to={`/country/${country.name}`}>
+        <Link to={`/country/${country.name}`} onClick={() => handleSelectCountry()}>
           <div className="card">
             <div className="card-image">
               <img src={country.flag} />

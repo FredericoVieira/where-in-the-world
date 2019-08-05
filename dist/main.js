@@ -63,7 +63,7 @@
 /******/
 /******/ 	var hotApplyOnUpdate = true;
 /******/ 	// eslint-disable-next-line no-unused-vars
-/******/ 	var hotCurrentHash = "a9eda5b5b280ebee162b";
+/******/ 	var hotCurrentHash = "af560fa252edbddf26a8";
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule;
@@ -17969,7 +17969,7 @@ exports = module.exports = __webpack_require__(/*! ../../node_modules/css-loader
 exports.push([module.i, "@import url(https://fonts.googleapis.com/css?family=Nunito:300,600,800);", ""]);
 
 // module
-exports.push([module.i, "*,\n*::after,\n*::before {\n  margin: 0;\n  padding: 0;\n  box-sizing: inherit; }\n\nhtml {\n  font-size: 62.5%; }\n\nbody {\n  box-sizing: border-box; }\n\nhtml, body, #app {\n  height: 100%;\n  background-color: #fafafa; }\n\nbody {\n  color: #111517;\n  font-size: 14px;\n  font-family: 'Nunito';\n  font-weight: 300; }\n\n.country {\n  background-color: #fafafa;\n  padding: 0 60px; }\n  .country .back {\n    margin-top: 50px;\n    margin-bottom: 35px; }\n  .country .button {\n    color: #111517;\n    background-color: white; }\n    .country .button__text {\n      margin-left: 10px; }\n  .country .button:hover {\n    background-color: white; }\n  .country .border {\n    margin: 0px 5px; }\n  .country .flag {\n    width: 100%; }\n  .country .title {\n    font-size: 24px;\n    font-weight: 600; }\n  .country .block {\n    margin: 10px 0px;\n    font-size: 16px; }\n    .country .block .info {\n      font-weight: 600; }\n\n.home {\n  background-color: #fafafa;\n  padding: 0 60px; }\n  .home .search-filter {\n    margin-top: 50px;\n    margin-bottom: 35px; }\n    .home .search-filter .filter-float {\n      float: right; }\n  .home .card img {\n    height: 250px;\n    object-fit: cover; }\n  .home .card .card-content {\n    color: #111517; }\n    .home .card .card-content .card-title {\n      white-space: nowrap;\n      width: 100%;\n      overflow: hidden;\n      -o-text-overflow: ellipsis;\n      text-overflow: ellipsis;\n      font-weight: 600; }\n    .home .card .card-content .card-info {\n      font-weight: 600; }\n\n.styled-component__StyledInput-sc-1dsackt-0 {\n  background-color: white !important;\n  border-bottom: none !important;\n  border-radius: 5px !important;\n  height: 65px !important;\n  font-size: 14px !important;\n  padding-left: 10px !important;\n  font-family: Nunito !important; }\n\n.styled-component__StyledInput-sc-1dsackt-0:focus {\n  box-shadow: none !important; }\n\n.react-search-box-dropdown {\n  position: absolute;\n  z-index: 1;\n  margin-top: 75px; }\n\n.filter .css-yk16xz-control {\n  border-color: #fafafa; }\n  .filter .css-yk16xz-control .css-1wa3eu0-placeholder {\n    color: #c2c1c1; }\n  .filter .css-yk16xz-control .css-1okebmr-indicatorSeparator {\n    display: none; }\n\nnav {\n  height: 90px !important;\n  line-height: 90px !important;\n  background-color: white !important;\n  color: #111517 !important;\n  margin-bottom: 5px; }\n\n.nav-wrapper__title {\n  margin-left: 50px;\n  font-size: 24px;\n  font-weight: 800; }\n\n.nav-wrapper__dark-mode {\n  float: right;\n  margin-right: 50px; }\n  .nav-wrapper__dark-mode--text {\n    margin-left: 10px;\n    font-size: 18px;\n    font-weight: 600; }\n", ""]);
+exports.push([module.i, "*,\n*::after,\n*::before {\n  margin: 0;\n  padding: 0;\n  box-sizing: inherit; }\n\nhtml {\n  font-size: 62.5%; }\n\nbody {\n  box-sizing: border-box; }\n\nhtml, body, #app {\n  height: 100%;\n  background-color: #fafafa; }\n\nbody {\n  color: #111517;\n  font-size: 14px;\n  font-family: 'Nunito';\n  font-weight: 300; }\n\n.country {\n  background-color: #fafafa;\n  padding: 0 60px; }\n  .country .back {\n    margin-top: 50px;\n    margin-bottom: 35px; }\n  .country .button {\n    color: #111517;\n    background-color: white; }\n    .country .button__text {\n      margin-left: 10px; }\n  .country .button:hover {\n    background-color: white; }\n  .country .border {\n    margin: 0px 5px; }\n  .country .flag {\n    width: 100%; }\n  .country .title {\n    font-size: 24px;\n    font-weight: 600; }\n  .country .block {\n    margin: 10px 0px;\n    font-size: 16px; }\n    .country .block .info {\n      font-weight: 600; }\n\n.home {\n  background-color: #fafafa;\n  padding: 0 60px; }\n  .home .search-filter {\n    margin-top: 50px;\n    margin-bottom: 35px;\n    padding: 0px 20px; }\n    .home .search-filter .filter-float {\n      float: right; }\n  .home .card {\n    margin: 40px 20px;\n    border-radius: 5px; }\n    .home .card img {\n      border-radius: 5px 5px 0 0;\n      height: 150px;\n      object-fit: cover; }\n    .home .card .card-content {\n      color: #111517; }\n      .home .card .card-content .card-title {\n        white-space: nowrap;\n        width: 100%;\n        overflow: hidden;\n        -o-text-overflow: ellipsis;\n        text-overflow: ellipsis;\n        font-weight: 600; }\n      .home .card .card-content .card-info {\n        font-weight: 600; }\n\n.styled-component__StyledInput-sc-1dsackt-0 {\n  background-color: white !important;\n  border-bottom: none !important;\n  border-radius: 5px !important;\n  height: 65px !important;\n  font-size: 14px !important;\n  padding-left: 10px !important;\n  font-family: Nunito !important; }\n\n.styled-component__StyledInput-sc-1dsackt-0:focus {\n  box-shadow: none !important; }\n\n.react-search-box-dropdown {\n  position: absolute;\n  z-index: 1;\n  margin-top: 75px; }\n\n.filter .css-yk16xz-control {\n  border-color: #fafafa; }\n  .filter .css-yk16xz-control .css-1wa3eu0-placeholder {\n    color: #c2c1c1; }\n  .filter .css-yk16xz-control .css-1okebmr-indicatorSeparator {\n    display: none; }\n\nnav {\n  height: 90px !important;\n  line-height: 90px !important;\n  background-color: white !important;\n  color: #111517 !important;\n  margin-bottom: 5px; }\n\n.nav-wrapper__title {\n  margin-left: 50px;\n  font-size: 24px;\n  font-weight: 800; }\n\n.nav-wrapper__dark-mode {\n  float: right;\n  margin-right: 50px; }\n  .nav-wrapper__dark-mode--text {\n    margin-left: 10px;\n    font-size: 18px;\n    font-weight: 600; }\n", ""]);
 
 // exports
 
@@ -65532,16 +65532,22 @@ function setCountries(countries) {
 /*!********************************!*\
   !*** ./src/actions/country.js ***!
   \********************************/
-/*! exports provided: setCountry */
+/*! exports provided: setCountry, clearCountry */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setCountry", function() { return setCountry; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "clearCountry", function() { return clearCountry; });
 function setCountry(country) {
   return {
     type: 'SET_COUNTRY',
     country
+  };
+}
+function clearCountry() {
+  return {
+    type: 'CLEAR_COUNTRY'
   };
 }
 
@@ -65795,7 +65801,7 @@ __webpack_require__.r(__webpack_exports__);
 
 class Home extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
   componentWillMount() {
-    this.props.fetchCountries();
+    if (this.props.countries.length === 0) this.props.fetchCountries();
   }
 
   render() {
@@ -65804,7 +65810,8 @@ class Home extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
       handleSearchCountry,
       region,
       handleFilterRegion,
-      history
+      history,
+      handleSelectCountry
     } = this.props;
     const regionsFilter = [{
       value: '',
@@ -65839,14 +65846,15 @@ class Home extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
       }, {
         value: country.name
       }));
-      countriesToShow = Object(_utils_shuffler__WEBPACK_IMPORTED_MODULE_5__["shuffle"])(countriesEligibles).slice(0, 6);
+      countriesToShow = Object(_utils_shuffler__WEBPACK_IMPORTED_MODULE_5__["shuffle"])(countriesEligibles);
     }
 
     const handleCountry = country => react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       key: country.name,
       className: "col s12 m6 l4 xl3"
     }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
-      to: `/country/${country.name}`
+      to: `/country/${country.name}`,
+      onClick: () => handleSelectCountry()
     }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       className: "card"
     }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -65949,8 +65957,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 /* harmony import */ var _actions_countries__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../actions/countries */ "./src/actions/countries.js");
 /* harmony import */ var _actions_region__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../actions/region */ "./src/actions/region.js");
-/* harmony import */ var _components_content_Home__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../components/content/Home */ "./src/components/content/Home.jsx");
-/* harmony import */ var _resources_requester__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../resources/requester */ "./src/resources/requester.js");
+/* harmony import */ var _actions_country__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../actions/country */ "./src/actions/country.js");
+/* harmony import */ var _components_content_Home__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../components/content/Home */ "./src/components/content/Home.jsx");
+/* harmony import */ var _resources_requester__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../resources/requester */ "./src/resources/requester.js");
+
 
 
 
@@ -65967,14 +65977,18 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => ({
   fetchCountries: async () => {
-    const [, response] = await Object(_resources_requester__WEBPACK_IMPORTED_MODULE_5__["default"])('GET', 'all?fields=flag;name;population;region;capital');
+    const [, response] = await Object(_resources_requester__WEBPACK_IMPORTED_MODULE_6__["default"])('GET', 'all?fields=flag;name;population;region;capital');
     dispatch(Object(_actions_countries__WEBPACK_IMPORTED_MODULE_2__["setCountries"])(response.data));
   },
-  handleSearchCountry: (selection, history) => history.push(`/country/${selection.value}`),
-  handleFilterRegion: selection => dispatch(Object(_actions_region__WEBPACK_IMPORTED_MODULE_3__["setRegion"])(selection.value))
+  handleSearchCountry: (selection, history) => {
+    dispatch(Object(_actions_country__WEBPACK_IMPORTED_MODULE_4__["clearCountry"])());
+    history.push(`/country/${selection.value}`);
+  },
+  handleFilterRegion: selection => dispatch(Object(_actions_region__WEBPACK_IMPORTED_MODULE_3__["setRegion"])(selection.value)),
+  handleSelectCountry: () => dispatch(Object(_actions_country__WEBPACK_IMPORTED_MODULE_4__["clearCountry"])())
 });
 
-/* harmony default export */ __webpack_exports__["default"] = (Object(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["withRouter"])(Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(mapStateToProps, mapDispatchToProps)(_components_content_Home__WEBPACK_IMPORTED_MODULE_4__["default"])));
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["withRouter"])(Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(mapStateToProps, mapDispatchToProps)(_components_content_Home__WEBPACK_IMPORTED_MODULE_5__["default"])));
 
 /***/ }),
 
@@ -66052,6 +66066,9 @@ function country(state = {}, action) {
   switch (action.type) {
     case 'SET_COUNTRY':
       return action.country;
+
+    case 'CLEAR_COUNTRY':
+      return {};
 
     default:
       return state;

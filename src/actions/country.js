@@ -4,3 +4,11 @@ export function setCountry(country) {
     country
   }
 }
+
+export function clearCountry() {
+  return {
+    type: 'CLEAR_COUNTRY'
+  }
+}
+
+
