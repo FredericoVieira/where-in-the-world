@@ -1,9 +1,17 @@
 nav {
   height: 90px !important;
   line-height: 90px !important;
+  position: relative;
+}
+
+.nav--light {
   background-color: $color-white !important;
   color: $color-primary !important;
-  margin-bottom: 5px;
+}
+
+.nav--dark {
+  background-color: $color-primary-dark  !important;
+  color: $color-white !important;
 }
 
 .nav-wrapper {
@@ -13,9 +21,10 @@ nav {
     font-weight: 800;
   }
 
-  &__dark-mode {
+  &__theme {
     float: right;
     margin-right: 50px;
+    cursor: pointer;
 
     &--text {
       margin-left: 10px;

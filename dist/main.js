@@ -63,7 +63,7 @@
 /******/
 /******/ 	var hotApplyOnUpdate = true;
 /******/ 	// eslint-disable-next-line no-unused-vars
-/******/ 	var hotCurrentHash = "af560fa252edbddf26a8";
+/******/ 	var hotCurrentHash = "df452c707c849c39843a";
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule;
@@ -13904,6 +13904,195 @@ var convertCurry = convert.bind(null, react__WEBPACK_IMPORTED_MODULE_2___default
 
 /***/ }),
 
+/***/ "./node_modules/ansi-colors/index.js":
+/*!*******************************************!*\
+  !*** ./node_modules/ansi-colors/index.js ***!
+  \*******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(process) {
+
+const colors = { enabled: true, visible: true, styles: {}, keys: {} };
+
+if ('FORCE_COLOR' in process.env) {
+  colors.enabled = process.env.FORCE_COLOR !== '0';
+}
+
+const ansi = style => {
+  style.open = `\u001b[${style.codes[0]}m`;
+  style.close = `\u001b[${style.codes[1]}m`;
+  style.regex = new RegExp(`\\u001b\\[${style.codes[1]}m`, 'g');
+  return style;
+};
+
+const wrap = (style, str, nl) => {
+  let { open, close, regex } = style;
+  str = open + (str.includes(close) ? str.replace(regex, close + open) : str) + close;
+  // see https://github.com/chalk/chalk/pull/92, thanks to the
+  // chalk contributors for this fix. However, we've confirmed that
+  // this issue is also present in Windows terminals
+  return nl ? str.replace(/\r?\n/g, `${close}$&${open}`) : str;
+};
+
+const style = (input, stack) => {
+  if (input === '' || input == null) return '';
+  if (colors.enabled === false) return input;
+  if (colors.visible === false) return '';
+  let str = '' + input;
+  let nl = str.includes('\n');
+  let n = stack.length;
+  while (n-- > 0) str = wrap(colors.styles[stack[n]], str, nl);
+  return str;
+};
+
+const define = (name, codes, type) => {
+  colors.styles[name] = ansi({ name, codes });
+  let t = colors.keys[type] || (colors.keys[type] = []);
+  t.push(name);
+
+  Reflect.defineProperty(colors, name, {
+    get() {
+      let color = input => style(input, color.stack);
+      Reflect.setPrototypeOf(color, colors);
+      color.stack = this.stack ? this.stack.concat(name) : [name];
+      return color;
+    }
+  });
+};
+
+define('reset', [0, 0], 'modifier');
+define('bold', [1, 22], 'modifier');
+define('dim', [2, 22], 'modifier');
+define('italic', [3, 23], 'modifier');
+define('underline', [4, 24], 'modifier');
+define('inverse', [7, 27], 'modifier');
+define('hidden', [8, 28], 'modifier');
+define('strikethrough', [9, 29], 'modifier');
+
+define('black', [30, 39], 'color');
+define('red', [31, 39], 'color');
+define('green', [32, 39], 'color');
+define('yellow', [33, 39], 'color');
+define('blue', [34, 39], 'color');
+define('magenta', [35, 39], 'color');
+define('cyan', [36, 39], 'color');
+define('white', [37, 39], 'color');
+define('gray', [90, 39], 'color');
+define('grey', [90, 39], 'color');
+
+define('bgBlack', [40, 49], 'bg');
+define('bgRed', [41, 49], 'bg');
+define('bgGreen', [42, 49], 'bg');
+define('bgYellow', [43, 49], 'bg');
+define('bgBlue', [44, 49], 'bg');
+define('bgMagenta', [45, 49], 'bg');
+define('bgCyan', [46, 49], 'bg');
+define('bgWhite', [47, 49], 'bg');
+
+define('blackBright', [90, 39], 'bright');
+define('redBright', [91, 39], 'bright');
+define('greenBright', [92, 39], 'bright');
+define('yellowBright', [93, 39], 'bright');
+define('blueBright', [94, 39], 'bright');
+define('magentaBright', [95, 39], 'bright');
+define('cyanBright', [96, 39], 'bright');
+define('whiteBright', [97, 39], 'bright');
+
+define('bgBlackBright', [100, 49], 'bgBright');
+define('bgRedBright', [101, 49], 'bgBright');
+define('bgGreenBright', [102, 49], 'bgBright');
+define('bgYellowBright', [103, 49], 'bgBright');
+define('bgBlueBright', [104, 49], 'bgBright');
+define('bgMagentaBright', [105, 49], 'bgBright');
+define('bgCyanBright', [106, 49], 'bgBright');
+define('bgWhiteBright', [107, 49], 'bgBright');
+
+/* eslint-disable no-control-regex */
+// this is a modified, optimized version of
+// https://github.com/chalk/ansi-regex (MIT License)
+const re = colors.ansiRegex = /[\u001b\u009b][[\]#;?()]*(?:(?:(?:[^\W_]*;?[^\W_]*)\u0007)|(?:(?:[0-9]{1,4}(;[0-9]{0,4})*)?[~0-9=<>cf-nqrtyA-PRZ]))/g;
+
+colors.hasColor = colors.hasAnsi = str => {
+  re.lastIndex = 0;
+  return !!str && typeof str === 'string' && re.test(str);
+};
+
+colors.unstyle = str => {
+  re.lastIndex = 0;
+  return typeof str === 'string' ? str.replace(re, '') : str;
+};
+
+colors.none = colors.clear = colors.noop = str => str; // no-op, for programmatic usage
+colors.stripColor = colors.unstyle;
+colors.symbols = __webpack_require__(/*! ./symbols */ "./node_modules/ansi-colors/symbols.js");
+colors.define = define;
+module.exports = colors;
+
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../process/browser.js */ "./node_modules/process/browser.js")))
+
+/***/ }),
+
+/***/ "./node_modules/ansi-colors/symbols.js":
+/*!*********************************************!*\
+  !*** ./node_modules/ansi-colors/symbols.js ***!
+  \*********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(process) {
+
+const isWindows = process.platform === 'win32';
+const isLinux = process.platform === 'linux';
+
+const windows = {
+  bullet: '•',
+  check: '√',
+  cross: '×',
+  ellipsis: '...',
+  heart: '❤',
+  info: 'i',
+  line: '─',
+  middot: '·',
+  minus: '－',
+  plus: '＋',
+  question: '?',
+  questionSmall: '﹖',
+  pointer: '>',
+  pointerSmall: '»',
+  warning: '‼'
+};
+
+const other = {
+  ballotCross: '✘',
+  bullet: '•',
+  check: '✔',
+  cross: '✖',
+  ellipsis: '…',
+  heart: '❤',
+  info: 'ℹ',
+  line: '─',
+  middot: '·',
+  minus: '－',
+  plus: '＋',
+  question: '?',
+  questionFull: '？',
+  questionSmall: '﹖',
+  pointer: isLinux ? '▸' : '❯',
+  pointerSmall: isLinux ? '‣' : '›',
+  warning: '⚠'
+};
+
+module.exports = isWindows ? windows : other;
+Reflect.defineProperty(module.exports, 'windows', { enumerable: false, value: windows });
+Reflect.defineProperty(module.exports, 'other', { enumerable: false, value: other });
+
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../process/browser.js */ "./node_modules/process/browser.js")))
+
+/***/ }),
+
 /***/ "./node_modules/ansi-html/index.js":
 /*!*****************************************!*\
   !*** ./node_modules/ansi-html/index.js ***!
@@ -17969,7 +18158,7 @@ exports = module.exports = __webpack_require__(/*! ../../node_modules/css-loader
 exports.push([module.i, "@import url(https://fonts.googleapis.com/css?family=Nunito:300,600,800);", ""]);
 
 // module
-exports.push([module.i, "*,\n*::after,\n*::before {\n  margin: 0;\n  padding: 0;\n  box-sizing: inherit; }\n\nhtml {\n  font-size: 62.5%; }\n\nbody {\n  box-sizing: border-box; }\n\nhtml, body, #app {\n  height: 100%;\n  background-color: #fafafa; }\n\nbody {\n  color: #111517;\n  font-size: 14px;\n  font-family: 'Nunito';\n  font-weight: 300; }\n\n.country {\n  background-color: #fafafa;\n  padding: 0 60px; }\n  .country .back {\n    margin-top: 50px;\n    margin-bottom: 35px; }\n  .country .button {\n    color: #111517;\n    background-color: white; }\n    .country .button__text {\n      margin-left: 10px; }\n  .country .button:hover {\n    background-color: white; }\n  .country .border {\n    margin: 0px 5px; }\n  .country .flag {\n    width: 100%; }\n  .country .title {\n    font-size: 24px;\n    font-weight: 600; }\n  .country .block {\n    margin: 10px 0px;\n    font-size: 16px; }\n    .country .block .info {\n      font-weight: 600; }\n\n.home {\n  background-color: #fafafa;\n  padding: 0 60px; }\n  .home .search-filter {\n    margin-top: 50px;\n    margin-bottom: 35px;\n    padding: 0px 20px; }\n    .home .search-filter .filter-float {\n      float: right; }\n  .home .card {\n    margin: 40px 20px;\n    border-radius: 5px; }\n    .home .card img {\n      border-radius: 5px 5px 0 0;\n      height: 150px;\n      object-fit: cover; }\n    .home .card .card-content {\n      color: #111517; }\n      .home .card .card-content .card-title {\n        white-space: nowrap;\n        width: 100%;\n        overflow: hidden;\n        -o-text-overflow: ellipsis;\n        text-overflow: ellipsis;\n        font-weight: 600; }\n      .home .card .card-content .card-info {\n        font-weight: 600; }\n\n.styled-component__StyledInput-sc-1dsackt-0 {\n  background-color: white !important;\n  border-bottom: none !important;\n  border-radius: 5px !important;\n  height: 65px !important;\n  font-size: 14px !important;\n  padding-left: 10px !important;\n  font-family: Nunito !important; }\n\n.styled-component__StyledInput-sc-1dsackt-0:focus {\n  box-shadow: none !important; }\n\n.react-search-box-dropdown {\n  position: absolute;\n  z-index: 1;\n  margin-top: 75px; }\n\n.filter .css-yk16xz-control {\n  border-color: #fafafa; }\n  .filter .css-yk16xz-control .css-1wa3eu0-placeholder {\n    color: #c2c1c1; }\n  .filter .css-yk16xz-control .css-1okebmr-indicatorSeparator {\n    display: none; }\n\nnav {\n  height: 90px !important;\n  line-height: 90px !important;\n  background-color: white !important;\n  color: #111517 !important;\n  margin-bottom: 5px; }\n\n.nav-wrapper__title {\n  margin-left: 50px;\n  font-size: 24px;\n  font-weight: 800; }\n\n.nav-wrapper__dark-mode {\n  float: right;\n  margin-right: 50px; }\n  .nav-wrapper__dark-mode--text {\n    margin-left: 10px;\n    font-size: 18px;\n    font-weight: 600; }\n", ""]);
+exports.push([module.i, "*,\n*::after,\n*::before {\n  margin: 0;\n  padding: 0;\n  box-sizing: inherit; }\n\nhtml {\n  font-size: 62.5%; }\n\nbody {\n  box-sizing: border-box; }\n\nhtml, body, #app {\n  height: 100%;\n  background-color: #fafafa; }\n\nbody {\n  color: #111517;\n  font-size: 14px;\n  font-family: 'Nunito';\n  font-weight: 300; }\n\n.country {\n  background-color: #fafafa;\n  padding: 50px 60px 0px 60px;\n  height: calc(100vh - 90px); }\n  .country .back {\n    margin-bottom: 60px; }\n  .country .button__text {\n    margin-left: 10px; }\n  .country .button--light {\n    color: #111517;\n    background-color: white; }\n  .country .button--dark {\n    color: white;\n    background-color: #2b3945; }\n  .country .button--light:hover,\n  .country .button--light:focus {\n    background-color: white !important; }\n  .country .button--dark:hover,\n  .country .button--dark:focus {\n    background-color: #2b3945 !important; }\n  .country .border {\n    margin: 0px 5px; }\n  .country .flag {\n    width: 100%; }\n  .country .title {\n    font-size: 24px;\n    font-weight: 600; }\n  .country .block {\n    margin: 10px 0px;\n    font-size: 16px; }\n    .country .block .info {\n      font-weight: 600; }\n\n.country--light {\n  background-color: white;\n  color: #111517; }\n\n.country--dark {\n  background-color: #202c37;\n  color: white; }\n\n.home {\n  padding: 50px 60px 0px 60px; }\n  .home .search-filter {\n    margin-bottom: 10px;\n    padding: 0px 20px; }\n    .home .search-filter .filter-float {\n      float: right !important; }\n  .home .card {\n    margin: 40px 20px;\n    border-radius: 5px;\n    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1); }\n    .home .card img {\n      border-radius: 5px 5px 0 0 !important;\n      height: 150px;\n      object-fit: cover; }\n    .home .card .card-content .card-title {\n      white-space: nowrap;\n      width: 100%;\n      overflow: hidden;\n      -o-text-overflow: ellipsis;\n      text-overflow: ellipsis;\n      font-weight: 600; }\n    .home .card .card-content .card-info {\n      font-weight: 600; }\n    .home .card .card-content--light {\n      color: #111517; }\n    .home .card .card-content--dark {\n      color: white;\n      background-color: #2b3945; }\n\n.home--light {\n  background-color: white !important;\n  color: #111517 !important; }\n\n.home--dark {\n  background-color: #202c37 !important;\n  color: white !important; }\n\n.search .styled-component__StyledInput-sc-1dsackt-0 {\n  border-bottom: none !important;\n  height: 63px !important;\n  font-size: 14px !important;\n  padding-left: 10px !important;\n  font-family: Nunito !important;\n  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1) !important;\n  border-radius: 5px !important;\n  margin: 0px !important; }\n\n.search--light .styled-component__StyledInput-sc-1dsackt-0 {\n  background-color: white !important; }\n\n.search--light .styled-component__StyledInput-sc-1dsackt-0::placeholder {\n  color: #cccccc;\n  opacity: 1; }\n\n.search--dark .styled-component__StyledInput-sc-1dsackt-0 {\n  color: white !important;\n  background-color: #2b3945 !important; }\n\n.search--dark .styled-component__StyledInput-sc-1dsackt-0::placeholder {\n  color: white;\n  opacity: 1; }\n\n.search > div .react-search-box-dropdown {\n  position: absolute;\n  z-index: 1;\n  margin-top: 75px; }\n\n.search--dark > div .react-search-box-dropdown {\n  color: white; }\n  .search--dark > div .react-search-box-dropdown ul > li {\n    background-color: #2b3945;\n    border: 1px solid #202c37; }\n  .search--dark > div .react-search-box-dropdown ul > li:hover {\n    background-color: #202c37; }\n\n.filter .filter--light__control {\n  border-color: white !important;\n  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1); }\n\n.filter .filter--light__control--is-focused {\n  border-color: white !important; }\n\n.filter .filter--light__option--is-focused {\n  background-color: #cccccc; }\n\n.filter .filter--light__placeholder {\n  color: #cccccc; }\n\n.filter .filter--light__indicator-separator,\n.filter .filter--dark__indicator-separator {\n  display: none; }\n\n.filter .filter--dark__control {\n  background-color: #2b3945;\n  border-color: #2b3945 !important;\n  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1); }\n\n.filter .filter--dark__placeholder {\n  color: white; }\n\n.filter .filter--dark__menu {\n  background-color: #2b3945; }\n\n.filter .filter--dark__option--is-focused {\n  background-color: #202c37; }\n\nnav {\n  height: 90px !important;\n  line-height: 90px !important;\n  position: relative; }\n\n.nav--light {\n  background-color: white !important;\n  color: #111517 !important; }\n\n.nav--dark {\n  background-color: #2b3945 !important;\n  color: white !important; }\n\n.nav-wrapper__title {\n  margin-left: 50px;\n  font-size: 24px;\n  font-weight: 800; }\n\n.nav-wrapper__theme {\n  float: right;\n  margin-right: 50px;\n  cursor: pointer; }\n  .nav-wrapper__theme--text {\n    margin-left: 10px;\n    font-size: 18px;\n    font-weight: 600; }\n", ""]);
 
 // exports
 
@@ -44617,6 +44806,2026 @@ if (false) {} else {
 
 /***/ }),
 
+/***/ "./node_modules/react-loader-spinner/dist/index.js":
+/*!*********************************************************!*\
+  !*** ./node_modules/react-loader-spinner/dist/index.js ***!
+  \*********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (global, factory) {
+  if (true) {
+    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [exports, __webpack_require__(/*! react */ "./node_modules/react/index.js"), __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js"), __webpack_require__(/*! ansi-colors */ "./node_modules/ansi-colors/index.js"), __webpack_require__(/*! ./loader */ "./node_modules/react-loader-spinner/dist/loader/index.js")], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
+				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+  } else { var mod; }
+})(this, function (exports, _react, _propTypes, _ansiColors, _loader) {
+  "use strict";
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.default = Loader;
+
+  var _react2 = _interopRequireDefault(_react);
+
+  var _propTypes2 = _interopRequireDefault(_propTypes);
+
+  function _interopRequireDefault(obj) {
+    return obj && obj.__esModule ? obj : {
+      default: obj
+    };
+  }
+
+  var _extends = Object.assign || function (target) {
+    for (var i = 1; i < arguments.length; i++) {
+      var source = arguments[i];
+
+      for (var key in source) {
+        if (Object.prototype.hasOwnProperty.call(source, key)) {
+          target[key] = source[key];
+        }
+      }
+    }
+
+    return target;
+  };
+
+  var componentNames = ["Audio", "BallTriangle", "Bars", "Circles", "Grid", "Hearts", "Oval", "Puff", "Rings", "TailSpin", "ThreeDots", "Watch", "RevolvingDot", "Triangle", "Plane", "MutatingDots", "CradleLoader"];
+
+  function componentName(type) {
+    if (componentNames.includes(type)) {
+      return _loader.Spinner[type];
+    }
+    return _loader.Spinner.Audio;
+  }
+
+  function Loader(props) {
+    if (!props.visible || props.visible === "false") {
+      return null;
+    }
+    return _react2.default.createElement(
+      "div",
+      { "aria-busy": "true", className: props.className, style: props.style },
+      _react2.default.createElement(componentName(props.type), _extends({}, props))
+    );
+  }
+
+  Loader.propTypes = {
+    type: _propTypes2.default.oneOf([].concat(componentNames)),
+    style: _propTypes2.default.objectOf(_propTypes2.default.string),
+    className: _propTypes2.default.string,
+    visible: _propTypes2.default.oneOfType([_propTypes2.default.bool, _propTypes2.default.string])
+  };
+
+  Loader.defaultProps = {
+    type: "Audio",
+    style: {},
+    className: "",
+    visible: true
+  };
+});
+
+/***/ }),
+
+/***/ "./node_modules/react-loader-spinner/dist/loader/Audio.js":
+/*!****************************************************************!*\
+  !*** ./node_modules/react-loader-spinner/dist/loader/Audio.js ***!
+  \****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (global, factory) {
+  if (true) {
+    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [exports, __webpack_require__(/*! react */ "./node_modules/react/index.js"), __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js")], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
+				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+  } else { var mod; }
+})(this, function (exports, _react, _propTypes) {
+  "use strict";
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.Audio = undefined;
+
+  var _react2 = _interopRequireDefault(_react);
+
+  var _propTypes2 = _interopRequireDefault(_propTypes);
+
+  function _interopRequireDefault(obj) {
+    return obj && obj.__esModule ? obj : {
+      default: obj
+    };
+  }
+
+  var Audio = exports.Audio = function Audio(props) {
+    return _react2.default.createElement(
+      "svg",
+      {
+        height: props.height,
+        width: props.width,
+        fill: props.color,
+        viewBox: "0 0 55 80",
+        xmlns: "http://www.w3.org/2000/svg",
+        "aria-label": props.label
+      },
+      _react2.default.createElement(
+        "g",
+        { transform: "matrix(1 0 0 -1 0 80)" },
+        _react2.default.createElement(
+          "rect",
+          { width: "10", height: "20", rx: "3" },
+          _react2.default.createElement("animate", {
+            attributeName: "height",
+            begin: "0s",
+            dur: "4.3s",
+            values: "20;45;57;80;64;32;66;45;64;23;66;13;64;56;34;34;2;23;76;79;20",
+            calcMode: "linear",
+            repeatCount: "indefinite"
+          })
+        ),
+        _react2.default.createElement(
+          "rect",
+          { x: "15", width: "10", height: "80", rx: "3" },
+          _react2.default.createElement("animate", {
+            attributeName: "height",
+            begin: "0s",
+            dur: "2s",
+            values: "80;55;33;5;75;23;73;33;12;14;60;80",
+            calcMode: "linear",
+            repeatCount: "indefinite"
+          })
+        ),
+        _react2.default.createElement(
+          "rect",
+          { x: "30", width: "10", height: "50", rx: "3" },
+          _react2.default.createElement("animate", {
+            attributeName: "height",
+            begin: "0s",
+            dur: "1.4s",
+            values: "50;34;78;23;56;23;34;76;80;54;21;50",
+            calcMode: "linear",
+            repeatCount: "indefinite"
+          })
+        ),
+        _react2.default.createElement(
+          "rect",
+          { x: "45", width: "10", height: "30", rx: "3" },
+          _react2.default.createElement("animate", {
+            attributeName: "height",
+            begin: "0s",
+            dur: "2s",
+            values: "30;45;13;80;56;72;45;76;34;23;67;30",
+            calcMode: "linear",
+            repeatCount: "indefinite"
+          })
+        )
+      )
+    );
+  };
+
+  Audio.propTypes = {
+    height: _propTypes2.default.number,
+    width: _propTypes2.default.number,
+    color: _propTypes2.default.string,
+    label: _propTypes2.default.string
+  };
+
+  Audio.defaultProps = {
+    height: 80,
+    width: 80,
+    color: "green",
+    label: "audio-loading"
+  };
+});
+
+/***/ }),
+
+/***/ "./node_modules/react-loader-spinner/dist/loader/BallTriangle.js":
+/*!***********************************************************************!*\
+  !*** ./node_modules/react-loader-spinner/dist/loader/BallTriangle.js ***!
+  \***********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (global, factory) {
+  if (true) {
+    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [exports, __webpack_require__(/*! react */ "./node_modules/react/index.js"), __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js")], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
+				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+  } else { var mod; }
+})(this, function (exports, _react, _propTypes) {
+  "use strict";
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.BallTriangle = undefined;
+
+  var _react2 = _interopRequireDefault(_react);
+
+  var _propTypes2 = _interopRequireDefault(_propTypes);
+
+  function _interopRequireDefault(obj) {
+    return obj && obj.__esModule ? obj : {
+      default: obj
+    };
+  }
+
+  var BallTriangle = exports.BallTriangle = function BallTriangle(props) {
+    return _react2.default.createElement(
+      "svg",
+      {
+        height: props.height,
+        width: props.width,
+        stroke: props.color,
+        viewBox: "0 0 57 57",
+        xmlns: "http://www.w3.org/2000/svg",
+        "aria-label": props.label
+      },
+      _react2.default.createElement(
+        "g",
+        { fill: "none", fillRule: "evenodd" },
+        _react2.default.createElement(
+          "g",
+          { transform: "translate(1 1)", strokeWidth: "2" },
+          _react2.default.createElement(
+            "circle",
+            { cx: "5", cy: "50", r: "5" },
+            _react2.default.createElement("animate", {
+              attributeName: "cy",
+              begin: "0s",
+              dur: "2.2s",
+              values: "50;5;50;50",
+              calcMode: "linear",
+              repeatCount: "indefinite"
+            }),
+            _react2.default.createElement("animate", {
+              attributeName: "cx",
+              begin: "0s",
+              dur: "2.2s",
+              values: "5;27;49;5",
+              calcMode: "linear",
+              repeatCount: "indefinite"
+            })
+          ),
+          _react2.default.createElement(
+            "circle",
+            { cx: "27", cy: "5", r: "5" },
+            _react2.default.createElement("animate", {
+              attributeName: "cy",
+              begin: "0s",
+              dur: "2.2s",
+              from: "5",
+              to: "5",
+              values: "5;50;50;5",
+              calcMode: "linear",
+              repeatCount: "indefinite"
+            }),
+            _react2.default.createElement("animate", {
+              attributeName: "cx",
+              begin: "0s",
+              dur: "2.2s",
+              from: "27",
+              to: "27",
+              values: "27;49;5;27",
+              calcMode: "linear",
+              repeatCount: "indefinite"
+            })
+          ),
+          _react2.default.createElement(
+            "circle",
+            { cx: "49", cy: "50", r: "5" },
+            _react2.default.createElement("animate", {
+              attributeName: "cy",
+              begin: "0s",
+              dur: "2.2s",
+              values: "50;50;5;50",
+              calcMode: "linear",
+              repeatCount: "indefinite"
+            }),
+            _react2.default.createElement("animate", {
+              attributeName: "cx",
+              from: "49",
+              to: "49",
+              begin: "0s",
+              dur: "2.2s",
+              values: "49;5;27;49",
+              calcMode: "linear",
+              repeatCount: "indefinite"
+            })
+          )
+        )
+      )
+    );
+  };
+
+  BallTriangle.propTypes = {
+    height: _propTypes2.default.number,
+    width: _propTypes2.default.number,
+    color: _propTypes2.default.string,
+    label: _propTypes2.default.string
+  };
+
+  BallTriangle.defaultProps = {
+    height: 80,
+    width: 80,
+    color: "green",
+    label: "audio-loading"
+  };
+});
+
+/***/ }),
+
+/***/ "./node_modules/react-loader-spinner/dist/loader/Bars.js":
+/*!***************************************************************!*\
+  !*** ./node_modules/react-loader-spinner/dist/loader/Bars.js ***!
+  \***************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (global, factory) {
+  if (true) {
+    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [exports, __webpack_require__(/*! react */ "./node_modules/react/index.js"), __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js")], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
+				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+  } else { var mod; }
+})(this, function (exports, _react, _propTypes) {
+  "use strict";
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.Bars = undefined;
+
+  var _react2 = _interopRequireDefault(_react);
+
+  var _propTypes2 = _interopRequireDefault(_propTypes);
+
+  function _interopRequireDefault(obj) {
+    return obj && obj.__esModule ? obj : {
+      default: obj
+    };
+  }
+
+  var Bars = exports.Bars = function Bars(props) {
+    return _react2.default.createElement(
+      "svg",
+      {
+        width: props.width,
+        height: props.height,
+        fill: props.color,
+        viewBox: "0 0 135 140",
+        xmlns: "http://www.w3.org/2000/svg",
+        "aria-label": props.label
+      },
+      _react2.default.createElement(
+        "rect",
+        { y: "10", width: "15", height: "120", rx: "6" },
+        _react2.default.createElement("animate", {
+          attributeName: "height",
+          begin: "0.5s",
+          dur: "1s",
+          values: "120;110;100;90;80;70;60;50;40;140;120",
+          calcMode: "linear",
+          repeatCount: "indefinite"
+        }),
+        _react2.default.createElement("animate", {
+          attributeName: "y",
+          begin: "0.5s",
+          dur: "1s",
+          values: "10;15;20;25;30;35;40;45;50;0;10",
+          calcMode: "linear",
+          repeatCount: "indefinite"
+        })
+      ),
+      _react2.default.createElement(
+        "rect",
+        { x: "30", y: "10", width: "15", height: "120", rx: "6" },
+        _react2.default.createElement("animate", {
+          attributeName: "height",
+          begin: "0.25s",
+          dur: "1s",
+          values: "120;110;100;90;80;70;60;50;40;140;120",
+          calcMode: "linear",
+          repeatCount: "indefinite"
+        }),
+        _react2.default.createElement("animate", {
+          attributeName: "y",
+          begin: "0.25s",
+          dur: "1s",
+          values: "10;15;20;25;30;35;40;45;50;0;10",
+          calcMode: "linear",
+          repeatCount: "indefinite"
+        })
+      ),
+      _react2.default.createElement(
+        "rect",
+        { x: "60", width: "15", height: "140", rx: "6" },
+        _react2.default.createElement("animate", {
+          attributeName: "height",
+          begin: "0s",
+          dur: "1s",
+          values: "120;110;100;90;80;70;60;50;40;140;120",
+          calcMode: "linear",
+          repeatCount: "indefinite"
+        }),
+        _react2.default.createElement("animate", {
+          attributeName: "y",
+          begin: "0s",
+          dur: "1s",
+          values: "10;15;20;25;30;35;40;45;50;0;10",
+          calcMode: "linear",
+          repeatCount: "indefinite"
+        })
+      ),
+      _react2.default.createElement(
+        "rect",
+        { x: "90", y: "10", width: "15", height: "120", rx: "6" },
+        _react2.default.createElement("animate", {
+          attributeName: "height",
+          begin: "0.25s",
+          dur: "1s",
+          values: "120;110;100;90;80;70;60;50;40;140;120",
+          calcMode: "linear",
+          repeatCount: "indefinite"
+        }),
+        _react2.default.createElement("animate", {
+          attributeName: "y",
+          begin: "0.25s",
+          dur: "1s",
+          values: "10;15;20;25;30;35;40;45;50;0;10",
+          calcMode: "linear",
+          repeatCount: "indefinite"
+        })
+      ),
+      _react2.default.createElement(
+        "rect",
+        { x: "120", y: "10", width: "15", height: "120", rx: "6" },
+        _react2.default.createElement("animate", {
+          attributeName: "height",
+          begin: "0.5s",
+          dur: "1s",
+          values: "120;110;100;90;80;70;60;50;40;140;120",
+          calcMode: "linear",
+          repeatCount: "indefinite"
+        }),
+        _react2.default.createElement("animate", {
+          attributeName: "y",
+          begin: "0.5s",
+          dur: "1s",
+          values: "10;15;20;25;30;35;40;45;50;0;10",
+          calcMode: "linear",
+          repeatCount: "indefinite"
+        })
+      )
+    );
+  };
+
+  Bars.propTypes = {
+    height: _propTypes2.default.number,
+    width: _propTypes2.default.number,
+    color: _propTypes2.default.string,
+    label: _propTypes2.default.string
+  };
+
+  Bars.defaultProps = {
+    height: 80,
+    width: 80,
+    color: "green",
+    label: "audio-loading"
+  };
+});
+
+/***/ }),
+
+/***/ "./node_modules/react-loader-spinner/dist/loader/Circles.js":
+/*!******************************************************************!*\
+  !*** ./node_modules/react-loader-spinner/dist/loader/Circles.js ***!
+  \******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (global, factory) {
+  if (true) {
+    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [exports, __webpack_require__(/*! react */ "./node_modules/react/index.js"), __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js")], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
+				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+  } else { var mod; }
+})(this, function (exports, _react, _propTypes) {
+  "use strict";
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.Circles = undefined;
+
+  var _react2 = _interopRequireDefault(_react);
+
+  var _propTypes2 = _interopRequireDefault(_propTypes);
+
+  function _interopRequireDefault(obj) {
+    return obj && obj.__esModule ? obj : {
+      default: obj
+    };
+  }
+
+  var Circles = exports.Circles = function Circles(props) {
+    return _react2.default.createElement(
+      "svg",
+      {
+        width: props.width,
+        height: props.height,
+        viewBox: "0 0 135 135",
+        xmlns: "http://www.w3.org/2000/svg",
+        fill: props.color,
+        "aria-label": props.label
+      },
+      _react2.default.createElement(
+        "path",
+        { d: "M67.447 58c5.523 0 10-4.477 10-10s-4.477-10-10-10-10 4.477-10 10 4.477 10 10 10zm9.448 9.447c0 5.523 4.477 10 10 10 5.522 0 10-4.477 10-10s-4.478-10-10-10c-5.523 0-10 4.477-10 10zm-9.448 9.448c-5.523 0-10 4.477-10 10 0 5.522 4.477 10 10 10s10-4.478 10-10c0-5.523-4.477-10-10-10zM58 67.447c0-5.523-4.477-10-10-10s-10 4.477-10 10 4.477 10 10 10 10-4.477 10-10z" },
+        _react2.default.createElement("animateTransform", {
+          attributeName: "transform",
+          type: "rotate",
+          from: "0 67 67",
+          to: "-360 67 67",
+          dur: "2.5s",
+          repeatCount: "indefinite"
+        })
+      ),
+      _react2.default.createElement(
+        "path",
+        { d: "M28.19 40.31c6.627 0 12-5.374 12-12 0-6.628-5.373-12-12-12-6.628 0-12 5.372-12 12 0 6.626 5.372 12 12 12zm30.72-19.825c4.686 4.687 12.284 4.687 16.97 0 4.686-4.686 4.686-12.284 0-16.97-4.686-4.687-12.284-4.687-16.97 0-4.687 4.686-4.687 12.284 0 16.97zm35.74 7.705c0 6.627 5.37 12 12 12 6.626 0 12-5.373 12-12 0-6.628-5.374-12-12-12-6.63 0-12 5.372-12 12zm19.822 30.72c-4.686 4.686-4.686 12.284 0 16.97 4.687 4.686 12.285 4.686 16.97 0 4.687-4.686 4.687-12.284 0-16.97-4.685-4.687-12.283-4.687-16.97 0zm-7.704 35.74c-6.627 0-12 5.37-12 12 0 6.626 5.373 12 12 12s12-5.374 12-12c0-6.63-5.373-12-12-12zm-30.72 19.822c-4.686-4.686-12.284-4.686-16.97 0-4.686 4.687-4.686 12.285 0 16.97 4.686 4.687 12.284 4.687 16.97 0 4.687-4.685 4.687-12.283 0-16.97zm-35.74-7.704c0-6.627-5.372-12-12-12-6.626 0-12 5.373-12 12s5.374 12 12 12c6.628 0 12-5.373 12-12zm-19.823-30.72c4.687-4.686 4.687-12.284 0-16.97-4.686-4.686-12.284-4.686-16.97 0-4.687 4.686-4.687 12.284 0 16.97 4.686 4.687 12.284 4.687 16.97 0z" },
+        _react2.default.createElement("animateTransform", {
+          attributeName: "transform",
+          type: "rotate",
+          from: "0 67 67",
+          to: "360 67 67",
+          dur: "8s",
+          repeatCount: "indefinite"
+        })
+      )
+    );
+  };
+
+  Circles.propTypes = {
+    height: _propTypes2.default.number,
+    width: _propTypes2.default.number,
+    color: _propTypes2.default.string,
+    label: _propTypes2.default.string
+  };
+
+  Circles.defaultProps = {
+    height: 80,
+    width: 80,
+    color: "green",
+    label: "audio-loading"
+  };
+});
+
+/***/ }),
+
+/***/ "./node_modules/react-loader-spinner/dist/loader/CradleLoader.js":
+/*!***********************************************************************!*\
+  !*** ./node_modules/react-loader-spinner/dist/loader/CradleLoader.js ***!
+  \***********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (global, factory) {
+  if (true) {
+    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [exports, __webpack_require__(/*! react */ "./node_modules/react/index.js"), __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js")], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
+				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+  } else { var mod; }
+})(this, function (exports, _react, _propTypes) {
+  "use strict";
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.CradleLoader = undefined;
+
+  var _react2 = _interopRequireDefault(_react);
+
+  var _propTypes2 = _interopRequireDefault(_propTypes);
+
+  function _interopRequireDefault(obj) {
+    return obj && obj.__esModule ? obj : {
+      default: obj
+    };
+  }
+
+  var CradleLoader = exports.CradleLoader = function CradleLoader(props) {
+    return _react2.default.createElement(
+      "div",
+      { "aria-label": props.label, role: "presentation", className: "container" },
+      _react2.default.createElement(
+        "div",
+        { className: "react-spinner-loader-swing" },
+        _react2.default.createElement("div", { className: "react-spinner-loader-swing-l" }),
+        _react2.default.createElement("div", null),
+        _react2.default.createElement("div", null),
+        _react2.default.createElement("div", null),
+        _react2.default.createElement("div", null),
+        _react2.default.createElement("div", null),
+        _react2.default.createElement("div", { className: "react-spinner-loader-swing-r" })
+      ),
+      _react2.default.createElement(
+        "div",
+        { className: "react-spinner-loader-shadow" },
+        _react2.default.createElement("div", { className: "react-spinner-loader-shadow-l" }),
+        _react2.default.createElement("div", null),
+        _react2.default.createElement("div", null),
+        _react2.default.createElement("div", null),
+        _react2.default.createElement("div", null),
+        _react2.default.createElement("div", null),
+        _react2.default.createElement("div", { className: "react-spinner-loader-shadow-r" })
+      )
+    );
+  };
+
+  CradleLoader.propTypes = {
+    label: _propTypes2.default.string
+  };
+
+  CradleLoader.defaultProps = {
+    label: "audio-loading"
+  };
+});
+
+/***/ }),
+
+/***/ "./node_modules/react-loader-spinner/dist/loader/Grid.js":
+/*!***************************************************************!*\
+  !*** ./node_modules/react-loader-spinner/dist/loader/Grid.js ***!
+  \***************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (global, factory) {
+  if (true) {
+    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [exports, __webpack_require__(/*! react */ "./node_modules/react/index.js"), __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js")], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
+				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+  } else { var mod; }
+})(this, function (exports, _react, _propTypes) {
+  "use strict";
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.Grid = undefined;
+
+  var _react2 = _interopRequireDefault(_react);
+
+  var _propTypes2 = _interopRequireDefault(_propTypes);
+
+  function _interopRequireDefault(obj) {
+    return obj && obj.__esModule ? obj : {
+      default: obj
+    };
+  }
+
+  var Grid = exports.Grid = function Grid(props) {
+    return _react2.default.createElement(
+      "svg",
+      {
+        width: props.width,
+        height: props.height,
+        viewBox: "0 0 105 105",
+        fill: props.color,
+        "aria-label": props.label
+      },
+      _react2.default.createElement(
+        "circle",
+        { cx: "12.5", cy: "12.5", r: "12.5" },
+        _react2.default.createElement("animate", {
+          attributeName: "fill-opacity",
+          begin: "0s",
+          dur: "1s",
+          values: "1;.2;1",
+          calcMode: "linear",
+          repeatCount: "indefinite"
+        })
+      ),
+      _react2.default.createElement(
+        "circle",
+        { cx: "12.5", cy: "52.5", r: "12.5" },
+        _react2.default.createElement("animate", {
+          attributeName: "fill-opacity",
+          begin: "100ms",
+          dur: "1s",
+          values: "1;.2;1",
+          calcMode: "linear",
+          repeatCount: "indefinite"
+        })
+      ),
+      _react2.default.createElement(
+        "circle",
+        { cx: "52.5", cy: "12.5", r: "12.5" },
+        _react2.default.createElement("animate", {
+          attributeName: "fill-opacity",
+          begin: "300ms",
+          dur: "1s",
+          values: "1;.2;1",
+          calcMode: "linear",
+          repeatCount: "indefinite"
+        })
+      ),
+      _react2.default.createElement(
+        "circle",
+        { cx: "52.5", cy: "52.5", r: "12.5" },
+        _react2.default.createElement("animate", {
+          attributeName: "fill-opacity",
+          begin: "600ms",
+          dur: "1s",
+          values: "1;.2;1",
+          calcMode: "linear",
+          repeatCount: "indefinite"
+        })
+      ),
+      _react2.default.createElement(
+        "circle",
+        { cx: "92.5", cy: "12.5", r: "12.5" },
+        _react2.default.createElement("animate", {
+          attributeName: "fill-opacity",
+          begin: "800ms",
+          dur: "1s",
+          values: "1;.2;1",
+          calcMode: "linear",
+          repeatCount: "indefinite"
+        })
+      ),
+      _react2.default.createElement(
+        "circle",
+        { cx: "92.5", cy: "52.5", r: "12.5" },
+        _react2.default.createElement("animate", {
+          attributeName: "fill-opacity",
+          begin: "400ms",
+          dur: "1s",
+          values: "1;.2;1",
+          calcMode: "linear",
+          repeatCount: "indefinite"
+        })
+      ),
+      _react2.default.createElement(
+        "circle",
+        { cx: "12.5", cy: "92.5", r: "12.5" },
+        _react2.default.createElement("animate", {
+          attributeName: "fill-opacity",
+          begin: "700ms",
+          dur: "1s",
+          values: "1;.2;1",
+          calcMode: "linear",
+          repeatCount: "indefinite"
+        })
+      ),
+      _react2.default.createElement(
+        "circle",
+        { cx: "52.5", cy: "92.5", r: "12.5" },
+        _react2.default.createElement("animate", {
+          attributeName: "fill-opacity",
+          begin: "500ms",
+          dur: "1s",
+          values: "1;.2;1",
+          calcMode: "linear",
+          repeatCount: "indefinite"
+        })
+      ),
+      _react2.default.createElement(
+        "circle",
+        { cx: "92.5", cy: "92.5", r: "12.5" },
+        _react2.default.createElement("animate", {
+          attributeName: "fill-opacity",
+          begin: "200ms",
+          dur: "1s",
+          values: "1;.2;1",
+          calcMode: "linear",
+          repeatCount: "indefinite"
+        })
+      )
+    );
+  };
+
+  Grid.propTypes = {
+    height: _propTypes2.default.number,
+    width: _propTypes2.default.number,
+    color: _propTypes2.default.string,
+    label: _propTypes2.default.string
+  };
+
+  Grid.defaultProps = {
+    height: 80,
+    width: 80,
+    color: "green",
+    label: "audio-loading"
+  };
+});
+
+/***/ }),
+
+/***/ "./node_modules/react-loader-spinner/dist/loader/Hearts.js":
+/*!*****************************************************************!*\
+  !*** ./node_modules/react-loader-spinner/dist/loader/Hearts.js ***!
+  \*****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (global, factory) {
+  if (true) {
+    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [exports, __webpack_require__(/*! react */ "./node_modules/react/index.js"), __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js")], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
+				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+  } else { var mod; }
+})(this, function (exports, _react, _propTypes) {
+  "use strict";
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.Hearts = undefined;
+
+  var _react2 = _interopRequireDefault(_react);
+
+  var _propTypes2 = _interopRequireDefault(_propTypes);
+
+  function _interopRequireDefault(obj) {
+    return obj && obj.__esModule ? obj : {
+      default: obj
+    };
+  }
+
+  var Hearts = exports.Hearts = function Hearts(props) {
+    return _react2.default.createElement(
+      "svg",
+      {
+        width: props.width,
+        height: props.height,
+        viewBox: "0 0 140 64",
+        xmlns: "http://www.w3.org/2000/svg",
+        fill: props.color,
+        "aria-label": props.label
+      },
+      _react2.default.createElement(
+        "path",
+        {
+          d: "M30.262 57.02L7.195 40.723c-5.84-3.976-7.56-12.06-3.842-18.063 3.715-6 11.467-7.65 17.306-3.68l4.52 3.76 2.6-5.274c3.717-6.002 11.47-7.65 17.305-3.68 5.84 3.97 7.56 12.054 3.842 18.062L34.49 56.118c-.897 1.512-2.793 1.915-4.228.9z",
+          attributeName: "fill-opacity",
+          from: "0",
+          to: ".5"
+        },
+        _react2.default.createElement("animate", {
+          attributeName: "fill-opacity",
+          begin: "0s",
+          dur: "1.4s",
+          values: "0.5;1;0.5",
+          calcMode: "linear",
+          repeatCount: "indefinite"
+        })
+      ),
+      _react2.default.createElement(
+        "path",
+        {
+          d: "M105.512 56.12l-14.44-24.272c-3.716-6.008-1.996-14.093 3.843-18.062 5.835-3.97 13.588-2.322 17.306 3.68l2.6 5.274 4.52-3.76c5.84-3.97 13.592-2.32 17.307 3.68 3.718 6.003 1.998 14.088-3.842 18.064L109.74 57.02c-1.434 1.014-3.33.61-4.228-.9z",
+          attributeName: "fill-opacity",
+          from: "0",
+          to: ".5"
+        },
+        _react2.default.createElement("animate", {
+          attributeName: "fill-opacity",
+          begin: "0.7s",
+          dur: "1.4s",
+          values: "0.5;1;0.5",
+          calcMode: "linear",
+          repeatCount: "indefinite"
+        })
+      ),
+      _react2.default.createElement("path", { d: "M67.408 57.834l-23.01-24.98c-5.864-6.15-5.864-16.108 0-22.248 5.86-6.14 15.37-6.14 21.234 0L70 16.168l4.368-5.562c5.863-6.14 15.375-6.14 21.235 0 5.863 6.14 5.863 16.098 0 22.247l-23.007 24.98c-1.43 1.556-3.757 1.556-5.188 0z" })
+    );
+  };
+
+  Hearts.propTypes = {
+    height: _propTypes2.default.number,
+    width: _propTypes2.default.number,
+    color: _propTypes2.default.string,
+    label: _propTypes2.default.string
+  };
+
+  Hearts.defaultProps = {
+    height: 80,
+    width: 80,
+    color: "green",
+    label: "audio-loading"
+  };
+});
+
+/***/ }),
+
+/***/ "./node_modules/react-loader-spinner/dist/loader/MutatingDots.js":
+/*!***********************************************************************!*\
+  !*** ./node_modules/react-loader-spinner/dist/loader/MutatingDots.js ***!
+  \***********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (global, factory) {
+  if (true) {
+    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [exports, __webpack_require__(/*! react */ "./node_modules/react/index.js"), __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js")], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
+				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+  } else { var mod; }
+})(this, function (exports, _react, _propTypes) {
+  "use strict";
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.MutatingDots = undefined;
+
+  var _react2 = _interopRequireDefault(_react);
+
+  var _propTypes2 = _interopRequireDefault(_propTypes);
+
+  function _interopRequireDefault(obj) {
+    return obj && obj.__esModule ? obj : {
+      default: obj
+    };
+  }
+
+  var MutatingDots = exports.MutatingDots = function MutatingDots(props) {
+    return _react2.default.createElement(
+      "svg",
+      { id: "goo-loader", width: props.width, height: 90, fill: props.color, "aria-label": props.label },
+      _react2.default.createElement(
+        "filter",
+        { id: "fancy-goo" },
+        _react2.default.createElement("feGaussianBlur", { "in": "SourceGraphic", stdDeviation: "6", result: "blur" }),
+        _react2.default.createElement("feColorMatrix", {
+          "in": "blur",
+          mode: "matrix",
+          values: "1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 19 -9",
+          result: "goo"
+        }),
+        _react2.default.createElement("feComposite", { "in": "SourceGraphic", in2: "goo", operator: "atop" })
+      ),
+      _react2.default.createElement(
+        "g",
+        { filter: "url(#fancy-goo)" },
+        _react2.default.createElement("animateTransform", {
+          id: "mainAnim",
+          attributeName: "transform",
+          attributeType: "XML",
+          type: "rotate",
+          from: "0 50 50",
+          to: "359 50 50",
+          dur: "1.2s",
+          repeatCount: "indefinite"
+        }),
+        _react2.default.createElement(
+          "circle",
+          { cx: "50%", cy: "40", r: "11" },
+          _react2.default.createElement("animate", {
+            id: "cAnim1",
+            attributeType: "XML",
+            attributeName: "cy",
+            dur: "0.6s",
+            begin: "0;cAnim1.end+0.2s",
+            calcMode: "spline",
+            values: "40;20;40",
+            keyTimes: "0;0.3;1",
+            keySplines: "0.175, 0.885, 0.320, 1.5; 0.175, 0.885, 0.320, 1.5"
+          })
+        ),
+        _react2.default.createElement(
+          "circle",
+          { cx: "50%", cy: "60", r: "11" },
+          _react2.default.createElement("animate", {
+            id: "cAnim2",
+            attributeType: "XML",
+            attributeName: "cy",
+            dur: "0.6s",
+            begin: "0.4s;cAnim2.end+0.2s",
+            calcMode: "spline",
+            values: "60;80;60",
+            keyTimes: "0;0.3;1",
+            keySplines: "0.175, 0.885, 0.320, 1.5;0.175, 0.885, 0.320, 1.5"
+          })
+        )
+      )
+    );
+  };
+
+  MutatingDots.propTypes = {
+    width: _propTypes2.default.number,
+    color: _propTypes2.default.string,
+    label: _propTypes2.default.string
+  };
+
+  MutatingDots.defaultProps = {
+    width: 80,
+    color: "green",
+    label: "audio-loading"
+  };
+});
+
+/***/ }),
+
+/***/ "./node_modules/react-loader-spinner/dist/loader/Oval.js":
+/*!***************************************************************!*\
+  !*** ./node_modules/react-loader-spinner/dist/loader/Oval.js ***!
+  \***************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (global, factory) {
+  if (true) {
+    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [exports, __webpack_require__(/*! react */ "./node_modules/react/index.js"), __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js")], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
+				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+  } else { var mod; }
+})(this, function (exports, _react, _propTypes) {
+  "use strict";
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.Oval = undefined;
+
+  var _react2 = _interopRequireDefault(_react);
+
+  var _propTypes2 = _interopRequireDefault(_propTypes);
+
+  function _interopRequireDefault(obj) {
+    return obj && obj.__esModule ? obj : {
+      default: obj
+    };
+  }
+
+  var Oval = exports.Oval = function Oval(props) {
+    return _react2.default.createElement(
+      "svg",
+      {
+        width: props.width,
+        height: props.height,
+        viewBox: "0 0 38 38",
+        xmlns: "http://www.w3.org/2000/svg",
+        stroke: props.color,
+        "aria-label": props.label
+      },
+      _react2.default.createElement(
+        "g",
+        { fill: "none", fillRule: "evenodd" },
+        _react2.default.createElement(
+          "g",
+          { transform: "translate(1 1)", strokeWidth: "2" },
+          _react2.default.createElement("circle", { strokeOpacity: ".5", cx: "18", cy: "18", r: "18" }),
+          _react2.default.createElement(
+            "path",
+            { d: "M36 18c0-9.94-8.06-18-18-18" },
+            _react2.default.createElement("animateTransform", {
+              attributeName: "transform",
+              type: "rotate",
+              from: "0 18 18",
+              to: "360 18 18",
+              dur: "1s",
+              repeatCount: "indefinite"
+            })
+          )
+        )
+      )
+    );
+  };
+
+  Oval.propTypes = {
+    height: _propTypes2.default.number,
+    width: _propTypes2.default.number,
+    color: _propTypes2.default.string,
+    label: _propTypes2.default.string
+  };
+
+  Oval.defaultProps = {
+    height: 80,
+    width: 80,
+    color: "green",
+    label: "audio-loading"
+  };
+});
+
+/***/ }),
+
+/***/ "./node_modules/react-loader-spinner/dist/loader/Plane.js":
+/*!****************************************************************!*\
+  !*** ./node_modules/react-loader-spinner/dist/loader/Plane.js ***!
+  \****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (global, factory) {
+  if (true) {
+    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [exports, __webpack_require__(/*! react */ "./node_modules/react/index.js"), __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js")], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
+				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+  } else { var mod; }
+})(this, function (exports, _react, _propTypes) {
+  "use strict";
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.Plane = undefined;
+
+  var _react2 = _interopRequireDefault(_react);
+
+  var _propTypes2 = _interopRequireDefault(_propTypes);
+
+  function _interopRequireDefault(obj) {
+    return obj && obj.__esModule ? obj : {
+      default: obj
+    };
+  }
+
+  var Plane = exports.Plane = function Plane(props) {
+    return _react2.default.createElement(
+      "svg",
+      {
+        className: "react-spinner-loader-svg-calLoader",
+        xmlns: "http://www.w3.org/2000/svg",
+        width: "230",
+        height: "230",
+        "aria-label": props.label
+      },
+      _react2.default.createElement(
+        "desc",
+        null,
+        "Plane animation. Loading "
+      ),
+      _react2.default.createElement("path", {
+        className: "react-spinner-loader-cal-loader__path",
+        style: { stroke: props.secondaryColor },
+        d: "M86.429 40c63.616-20.04 101.511 25.08 107.265 61.93 6.487 41.54-18.593 76.99-50.6 87.643-59.46 19.791-101.262-23.577-107.142-62.616C29.398 83.441 59.945 48.343 86.43 40z",
+        fill: "none",
+        stroke: "#0099cc",
+        strokeWidth: "4",
+        strokeLinecap: "round",
+        strokeLinejoin: "round",
+        strokeDasharray: "10 10 10 10 10 10 10 432",
+        strokeDashoffset: "77"
+      }),
+      _react2.default.createElement("path", {
+        className: "cal-loader__plane",
+        style: { fill: props.color },
+        d: "M141.493 37.93c-1.087-.927-2.942-2.002-4.32-2.501-2.259-.824-3.252-.955-9.293-1.172-4.017-.146-5.197-.23-5.47-.37-.766-.407-1.526-1.448-7.114-9.773-4.8-7.145-5.344-7.914-6.327-8.976-1.214-1.306-1.396-1.378-3.79-1.473-1.036-.04-2-.043-2.153-.002-.353.1-.87.586-1 .952-.139.399-.076.71.431 2.22.241.72 1.029 3.386 1.742 5.918 1.644 5.844 2.378 8.343 2.863 9.705.206.601.33 1.1.275 1.125-.24.097-10.56 1.066-11.014 1.032a3.532 3.532 0 0 1-1.002-.276l-.487-.246-2.044-2.613c-2.234-2.87-2.228-2.864-3.35-3.309-.717-.287-2.82-.386-3.276-.163-.457.237-.727.644-.737 1.152-.018.39.167.805 1.916 4.373 1.06 2.166 1.964 4.083 1.998 4.27.04.179.004.521-.076.75-.093.228-1.109 2.064-2.269 4.088-1.921 3.34-2.11 3.711-2.123 4.107-.008.25.061.557.168.725.328.512.72.644 1.966.676 1.32.029 2.352-.236 3.05-.762.222-.171 1.275-1.313 2.412-2.611 1.918-2.185 2.048-2.32 2.45-2.505.241-.111.601-.232.82-.271.267-.058 2.213.201 5.912.8 3.036.48 5.525.894 5.518.914 0 .026-.121.306-.27.638-.54 1.198-1.515 3.842-3.35 9.021-1.029 2.913-2.107 5.897-2.4 6.62-.703 1.748-.725 1.833-.594 2.286.137.46.45.833.872 1.012.41.177 3.823.24 4.37.085.852-.25 1.44-.688 2.312-1.724 1.166-1.39 3.169-3.948 6.771-8.661 5.8-7.583 6.561-8.49 7.387-8.702.233-.065 2.828-.056 5.784.011 5.827.138 6.64.09 8.62-.5 2.24-.67 4.035-1.65 5.517-3.016 1.136-1.054 1.135-1.014.207-1.962-.357-.38-.767-.777-.902-.893z",
+        fill: "#000033"
+      })
+    );
+  };
+
+  Plane.propTypes = {
+    secondaryColor: _propTypes2.default.string,
+    color: _propTypes2.default.string,
+    label: _propTypes2.default
+  };
+
+  Plane.defaultProps = {
+    secondaryColor: "grey",
+    color: "#FFA500",
+    label: "async-loading"
+  };
+});
+
+/***/ }),
+
+/***/ "./node_modules/react-loader-spinner/dist/loader/Puff.js":
+/*!***************************************************************!*\
+  !*** ./node_modules/react-loader-spinner/dist/loader/Puff.js ***!
+  \***************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (global, factory) {
+  if (true) {
+    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [exports, __webpack_require__(/*! react */ "./node_modules/react/index.js"), __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js")], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
+				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+  } else { var mod; }
+})(this, function (exports, _react, _propTypes) {
+  "use strict";
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.Puff = undefined;
+
+  var _react2 = _interopRequireDefault(_react);
+
+  var _propTypes2 = _interopRequireDefault(_propTypes);
+
+  function _interopRequireDefault(obj) {
+    return obj && obj.__esModule ? obj : {
+      default: obj
+    };
+  }
+
+  var Puff = exports.Puff = function Puff(props) {
+    return _react2.default.createElement(
+      "svg",
+      {
+        width: props.width,
+        height: props.height,
+        viewBox: "0 0 44 44",
+        xmlns: "http://www.w3.org/2000/svg",
+        stroke: props.color,
+        "aria-label": props.label
+      },
+      _react2.default.createElement(
+        "g",
+        { fill: "none", fillRule: "evenodd", strokeWidth: "2" },
+        _react2.default.createElement(
+          "circle",
+          { cx: "22", cy: "22", r: "1" },
+          _react2.default.createElement("animate", {
+            attributeName: "r",
+            begin: "0s",
+            dur: "1.8s",
+            values: "1; 20",
+            calcMode: "spline",
+            keyTimes: "0; 1",
+            keySplines: "0.165, 0.84, 0.44, 1",
+            repeatCount: "indefinite"
+          }),
+          _react2.default.createElement("animate", {
+            attributeName: "strokeOpacity",
+            begin: "0s",
+            dur: "1.8s",
+            values: "1; 0",
+            calcMode: "spline",
+            keyTimes: "0; 1",
+            keySplines: "0.3, 0.61, 0.355, 1",
+            repeatCount: "indefinite"
+          })
+        ),
+        _react2.default.createElement(
+          "circle",
+          { cx: "22", cy: "22", r: "1" },
+          _react2.default.createElement("animate", {
+            attributeName: "r",
+            begin: "-0.9s",
+            dur: "1.8s",
+            values: "1; 20",
+            calcMode: "spline",
+            keyTimes: "0; 1",
+            keySplines: "0.165, 0.84, 0.44, 1",
+            repeatCount: "indefinite"
+          }),
+          _react2.default.createElement("animate", {
+            attributeName: "strokeOpacity",
+            begin: "-0.9s",
+            dur: "1.8s",
+            values: "1; 0",
+            calcMode: "spline",
+            keyTimes: "0; 1",
+            keySplines: "0.3, 0.61, 0.355, 1",
+            repeatCount: "indefinite"
+          })
+        )
+      )
+    );
+  };
+
+  Puff.propTypes = {
+    height: _propTypes2.default.number,
+    width: _propTypes2.default.number,
+    color: _propTypes2.default.string,
+    label: _propTypes2.default.string
+  };
+
+  Puff.defaultProps = {
+    height: 80,
+    width: 80,
+    color: "green",
+    label: "audio-loading"
+  };
+});
+
+/***/ }),
+
+/***/ "./node_modules/react-loader-spinner/dist/loader/RevolvingDot.js":
+/*!***********************************************************************!*\
+  !*** ./node_modules/react-loader-spinner/dist/loader/RevolvingDot.js ***!
+  \***********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (global, factory) {
+  if (true) {
+    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [exports, __webpack_require__(/*! react */ "./node_modules/react/index.js"), __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js")], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
+				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+  } else { var mod; }
+})(this, function (exports, _react, _propTypes) {
+  "use strict";
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.RevolvingDot = undefined;
+
+  var _react2 = _interopRequireDefault(_react);
+
+  var _propTypes2 = _interopRequireDefault(_propTypes);
+
+  function _interopRequireDefault(obj) {
+    return obj && obj.__esModule ? obj : {
+      default: obj
+    };
+  }
+
+  var RevolvingDot = exports.RevolvingDot = function RevolvingDot(props) {
+    return _react2.default.createElement(
+      "svg",
+      {
+        version: "1.1",
+        width: props.width,
+        height: props.height,
+        xmlns: "http://www.w3.org/2000/svg",
+        x: "0px",
+        y: "0px",
+        "aria-label": props.label
+      },
+      _react2.default.createElement("circle", {
+        fill: "none",
+        stroke: props.color,
+        strokeWidth: "4",
+        cx: "50",
+        cy: "50",
+        r: "44",
+        style: { opacity: 0.5 }
+      }),
+      _react2.default.createElement(
+        "circle",
+        { fill: props.color, stroke: props.color, strokeWidth: "3", cx: "8", cy: "54", r: "6" },
+        _react2.default.createElement("animateTransform", {
+          attributeName: "transform",
+          dur: "2s",
+          type: "rotate",
+          from: "0 50 48",
+          to: "360 50 52",
+          repeatCount: "indefinite"
+        })
+      )
+    );
+  };
+
+  RevolvingDot.propTypes = {
+    height: _propTypes2.default.number,
+    width: _propTypes2.default.number,
+    color: _propTypes2.default.string,
+    label: _propTypes2.default.string
+  };
+
+  RevolvingDot.defaultProps = {
+    height: 80,
+    width: 80,
+    color: "green",
+    label: "audio-loading"
+  };
+});
+
+/***/ }),
+
+/***/ "./node_modules/react-loader-spinner/dist/loader/Rings.js":
+/*!****************************************************************!*\
+  !*** ./node_modules/react-loader-spinner/dist/loader/Rings.js ***!
+  \****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (global, factory) {
+  if (true) {
+    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [exports, __webpack_require__(/*! react */ "./node_modules/react/index.js"), __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js")], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
+				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+  } else { var mod; }
+})(this, function (exports, _react, _propTypes) {
+  "use strict";
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.Rings = undefined;
+
+  var _react2 = _interopRequireDefault(_react);
+
+  var _propTypes2 = _interopRequireDefault(_propTypes);
+
+  function _interopRequireDefault(obj) {
+    return obj && obj.__esModule ? obj : {
+      default: obj
+    };
+  }
+
+  var Rings = exports.Rings = function Rings(props) {
+    return _react2.default.createElement(
+      "svg",
+      {
+        width: props.width,
+        height: props.height,
+        viewBox: "0 0 45 45",
+        xmlns: "http://www.w3.org/2000/svg",
+        stroke: props.color,
+        "aria-label": props.label
+      },
+      _react2.default.createElement(
+        "g",
+        { fill: "none", fillRule: "evenodd", transform: "translate(1 1)", strokeWidth: "2" },
+        _react2.default.createElement(
+          "circle",
+          { cx: "22", cy: "22", r: "6", strokeOpacity: "0" },
+          _react2.default.createElement("animate", {
+            attributeName: "r",
+            begin: "1.5s",
+            dur: "3s",
+            values: "6;22",
+            calcMode: "linear",
+            repeatCount: "indefinite"
+          }),
+          _react2.default.createElement("animate", {
+            attributeName: "stroke-opacity",
+            begin: "1.5s",
+            dur: "3s",
+            values: "1;0",
+            calcMode: "linear",
+            repeatCount: "indefinite"
+          }),
+          _react2.default.createElement("animate", {
+            attributeName: "stroke-width",
+            begin: "1.5s",
+            dur: "3s",
+            values: "2;0",
+            calcMode: "linear",
+            repeatCount: "indefinite"
+          })
+        ),
+        _react2.default.createElement(
+          "circle",
+          { cx: "22", cy: "22", r: "6", strokeOpacity: "0" },
+          _react2.default.createElement("animate", {
+            attributeName: "r",
+            begin: "3s",
+            dur: "3s",
+            values: "6;22",
+            calcMode: "linear",
+            repeatCount: "indefinite"
+          }),
+          _react2.default.createElement("animate", {
+            attributeName: "strokeOpacity",
+            begin: "3s",
+            dur: "3s",
+            values: "1;0",
+            calcMode: "linear",
+            repeatCount: "indefinite"
+          }),
+          _react2.default.createElement("animate", {
+            attributeName: "strokeWidth",
+            begin: "3s",
+            dur: "3s",
+            values: "2;0",
+            calcMode: "linear",
+            repeatCount: "indefinite"
+          })
+        ),
+        _react2.default.createElement(
+          "circle",
+          { cx: "22", cy: "22", r: "8" },
+          _react2.default.createElement("animate", {
+            attributeName: "r",
+            begin: "0s",
+            dur: "1.5s",
+            values: "6;1;2;3;4;5;6",
+            calcMode: "linear",
+            repeatCount: "indefinite"
+          })
+        )
+      )
+    );
+  };
+
+  Rings.propTypes = {
+    height: _propTypes2.default.number,
+    width: _propTypes2.default.number,
+    color: _propTypes2.default.string,
+    label: _propTypes2.default.string
+  };
+
+  Rings.defaultProps = {
+    height: 80,
+    width: 80,
+    color: "green",
+    label: "audio-loading"
+  };
+});
+
+/***/ }),
+
+/***/ "./node_modules/react-loader-spinner/dist/loader/TailSpin.js":
+/*!*******************************************************************!*\
+  !*** ./node_modules/react-loader-spinner/dist/loader/TailSpin.js ***!
+  \*******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (global, factory) {
+  if (true) {
+    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [exports, __webpack_require__(/*! react */ "./node_modules/react/index.js"), __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js")], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
+				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+  } else { var mod; }
+})(this, function (exports, _react, _propTypes) {
+  "use strict";
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.TailSpin = undefined;
+
+  var _react2 = _interopRequireDefault(_react);
+
+  var _propTypes2 = _interopRequireDefault(_propTypes);
+
+  function _interopRequireDefault(obj) {
+    return obj && obj.__esModule ? obj : {
+      default: obj
+    };
+  }
+
+  var TailSpin = exports.TailSpin = function TailSpin(props) {
+    return _react2.default.createElement(
+      "svg",
+      {
+        width: props.width,
+        height: props.height,
+        viewBox: "0 0 38 38",
+        xmlns: "http://www.w3.org/2000/svg",
+        "aria-label": props.label
+      },
+      _react2.default.createElement(
+        "defs",
+        null,
+        _react2.default.createElement(
+          "linearGradient",
+          { x1: "8.042%", y1: "0%", x2: "65.682%", y2: "23.865%", id: "a" },
+          _react2.default.createElement("stop", { stopColor: props.color, stopOpacity: "0", offset: "0%" }),
+          _react2.default.createElement("stop", { stopColor: props.color, stopOpacity: ".631", offset: "63.146%" }),
+          _react2.default.createElement("stop", { stopColor: props.color, offset: "100%" })
+        )
+      ),
+      _react2.default.createElement(
+        "g",
+        { fill: "none", fillRule: "evenodd" },
+        _react2.default.createElement(
+          "g",
+          { transform: "translate(1 1)" },
+          _react2.default.createElement(
+            "path",
+            { d: "M36 18c0-9.94-8.06-18-18-18", id: "Oval-2", stroke: props.color, strokeWidth: "2" },
+            _react2.default.createElement("animateTransform", {
+              attributeName: "transform",
+              type: "rotate",
+              from: "0 18 18",
+              to: "360 18 18",
+              dur: "0.9s",
+              repeatCount: "indefinite"
+            })
+          ),
+          _react2.default.createElement(
+            "circle",
+            { fill: "#fff", cx: "36", cy: "18", r: "1" },
+            _react2.default.createElement("animateTransform", {
+              attributeName: "transform",
+              type: "rotate",
+              from: "0 18 18",
+              to: "360 18 18",
+              dur: "0.9s",
+              repeatCount: "indefinite"
+            })
+          )
+        )
+      )
+    );
+  };
+
+  TailSpin.propTypes = {
+    height: _propTypes2.default.number,
+    width: _propTypes2.default.number,
+    color: _propTypes2.default.string,
+    label: _propTypes2.default.string
+  };
+
+  TailSpin.defaultProps = {
+    height: 80,
+    width: 80,
+    color: "green",
+    label: "audio-loading"
+  };
+});
+
+/***/ }),
+
+/***/ "./node_modules/react-loader-spinner/dist/loader/ThreeDots.js":
+/*!********************************************************************!*\
+  !*** ./node_modules/react-loader-spinner/dist/loader/ThreeDots.js ***!
+  \********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (global, factory) {
+  if (true) {
+    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [exports, __webpack_require__(/*! react */ "./node_modules/react/index.js"), __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js")], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
+				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+  } else { var mod; }
+})(this, function (exports, _react, _propTypes) {
+  "use strict";
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.ThreeDots = undefined;
+
+  var _react2 = _interopRequireDefault(_react);
+
+  var _propTypes2 = _interopRequireDefault(_propTypes);
+
+  function _interopRequireDefault(obj) {
+    return obj && obj.__esModule ? obj : {
+      default: obj
+    };
+  }
+
+  var ThreeDots = exports.ThreeDots = function ThreeDots(props) {
+    return _react2.default.createElement(
+      "svg",
+      {
+        width: props.width,
+        height: props.height,
+        viewBox: "0 0 120 30",
+        xmlns: "http://www.w3.org/2000/svg",
+        fill: props.color,
+        "aria-label": props.label
+      },
+      _react2.default.createElement(
+        "circle",
+        { cx: "15", cy: "15", r: "15" },
+        _react2.default.createElement("animate", {
+          attributeName: "r",
+          from: "15",
+          to: "15",
+          begin: "0s",
+          dur: "0.8s",
+          values: "15;9;15",
+          calcMode: "linear",
+          repeatCount: "indefinite"
+        }),
+        _react2.default.createElement("animate", {
+          attributeName: "fillOpacity",
+          from: "1",
+          to: "1",
+          begin: "0s",
+          dur: "0.8s",
+          values: "1;.5;1",
+          calcMode: "linear",
+          repeatCount: "indefinite"
+        })
+      ),
+      _react2.default.createElement(
+        "circle",
+        { cx: "60", cy: "15", r: "9", attributeName: "fillOpacity", from: "1", to: "0.3" },
+        _react2.default.createElement("animate", {
+          attributeName: "r",
+          from: "9",
+          to: "9",
+          begin: "0s",
+          dur: "0.8s",
+          values: "9;15;9",
+          calcMode: "linear",
+          repeatCount: "indefinite"
+        }),
+        _react2.default.createElement("animate", {
+          attributeName: "fillOpacity",
+          from: "0.5",
+          to: "0.5",
+          begin: "0s",
+          dur: "0.8s",
+          values: ".5;1;.5",
+          calcMode: "linear",
+          repeatCount: "indefinite"
+        })
+      ),
+      _react2.default.createElement(
+        "circle",
+        { cx: "105", cy: "15", r: "15" },
+        _react2.default.createElement("animate", {
+          attributeName: "r",
+          from: "15",
+          to: "15",
+          begin: "0s",
+          dur: "0.8s",
+          values: "15;9;15",
+          calcMode: "linear",
+          repeatCount: "indefinite"
+        }),
+        _react2.default.createElement("animate", {
+          attributeName: "fillOpacity",
+          from: "1",
+          to: "1",
+          begin: "0s",
+          dur: "0.8s",
+          values: "1;.5;1",
+          calcMode: "linear",
+          repeatCount: "indefinite"
+        })
+      )
+    );
+  };
+
+  ThreeDots.propTypes = {
+    height: _propTypes2.default.number,
+    width: _propTypes2.default.number,
+    color: _propTypes2.default.string,
+    label: _propTypes2.default.string
+  };
+
+  ThreeDots.defaultProps = {
+    height: 80,
+    width: 80,
+    color: "green",
+    label: "audio-loading"
+  };
+});
+
+/***/ }),
+
+/***/ "./node_modules/react-loader-spinner/dist/loader/Triangle.js":
+/*!*******************************************************************!*\
+  !*** ./node_modules/react-loader-spinner/dist/loader/Triangle.js ***!
+  \*******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (global, factory) {
+  if (true) {
+    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [exports, __webpack_require__(/*! react */ "./node_modules/react/index.js"), __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js")], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
+				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+  } else { var mod; }
+})(this, function (exports, _react, _propTypes) {
+  "use strict";
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.Triangle = undefined;
+
+  var _react2 = _interopRequireDefault(_react);
+
+  var _propTypes2 = _interopRequireDefault(_propTypes);
+
+  function _interopRequireDefault(obj) {
+    return obj && obj.__esModule ? obj : {
+      default: obj
+    };
+  }
+
+  var Triangle = exports.Triangle = function Triangle(props) {
+    return _react2.default.createElement(
+      "div",
+      { className: "react-spinner-loader-svg" },
+      _react2.default.createElement(
+        "svg",
+        {
+          id: "triangle",
+          width: props.width,
+          height: props.height,
+          viewBox: "-3 -4 39 39",
+          "aria-label": props.label
+        },
+        _react2.default.createElement("polygon", { fill: "transparent", stroke: props.color, strokeWidth: "1", points: "16,0 32,32 0,32" })
+      )
+    );
+  };
+
+  Triangle.propTypes = {
+    height: _propTypes2.default.number,
+    width: _propTypes2.default.number,
+    color: _propTypes2.default.string,
+    label: _propTypes2.default.string
+  };
+
+  Triangle.defaultProps = {
+    height: 80,
+    width: 80,
+    color: "green",
+    label: "audio-loading"
+  };
+});
+
+/***/ }),
+
+/***/ "./node_modules/react-loader-spinner/dist/loader/Watch.js":
+/*!****************************************************************!*\
+  !*** ./node_modules/react-loader-spinner/dist/loader/Watch.js ***!
+  \****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (global, factory) {
+  if (true) {
+    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [exports, __webpack_require__(/*! react */ "./node_modules/react/index.js"), __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js")], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
+				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+  } else { var mod; }
+})(this, function (exports, _react, _propTypes) {
+  "use strict";
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.Watch = undefined;
+
+  var _react2 = _interopRequireDefault(_react);
+
+  var _propTypes2 = _interopRequireDefault(_propTypes);
+
+  function _interopRequireDefault(obj) {
+    return obj && obj.__esModule ? obj : {
+      default: obj
+    };
+  }
+
+  var Watch = exports.Watch = function Watch(props) {
+    return _react2.default.createElement(
+      "svg",
+      {
+        width: props.width,
+        height: props.height,
+        version: "1.1",
+        id: "L2",
+        xmlns: "http://www.w3.org/2000/svg",
+        x: "0px",
+        y: "0px",
+        viewBox: "0 0 100 100",
+        enableBackground: "new 0 0 100 100",
+        xmlSpace: "preserve",
+        "aria-label": props.label
+      },
+      _react2.default.createElement("circle", {
+        fill: "none",
+        stroke: props.color,
+        strokeWidth: "4",
+        strokeMiterlimit: "10",
+        cx: "50",
+        cy: "50",
+        r: "48"
+      }),
+      _react2.default.createElement(
+        "line",
+        {
+          fill: "none",
+          strokeLinecap: "round",
+          stroke: props.color,
+          strokeWidth: "4",
+          strokeMiterlimit: "10",
+          x1: "50",
+          y1: "50",
+          x2: "85",
+          y2: "50.5"
+        },
+        _react2.default.createElement("animateTransform", {
+          attributeName: "transform",
+          dur: "2s",
+          type: "rotate",
+          from: "0 50 50",
+          to: "360 50 50",
+          repeatCount: "indefinite"
+        })
+      ),
+      _react2.default.createElement(
+        "line",
+        {
+          fill: "none",
+          strokeLinecap: "round",
+          stroke: props.color,
+          strokeWidth: "4",
+          strokeMiterlimit: "10",
+          x1: "50",
+          y1: "50",
+          x2: "49.5",
+          y2: "74"
+        },
+        _react2.default.createElement("animateTransform", {
+          attributeName: "transform",
+          dur: "15s",
+          type: "rotate",
+          from: "0 50 50",
+          to: "360 50 50",
+          repeatCount: "indefinite"
+        })
+      )
+    );
+  };
+
+  Watch.propTypes = {
+    height: _propTypes2.default.number,
+    width: _propTypes2.default.number,
+    color: _propTypes2.default.string,
+    label: _propTypes2.default.string
+  };
+
+  Watch.defaultProps = {
+    height: 80,
+    width: 80,
+    color: "green",
+    label: "audio-loading"
+  };
+});
+
+/***/ }),
+
+/***/ "./node_modules/react-loader-spinner/dist/loader/index.js":
+/*!****************************************************************!*\
+  !*** ./node_modules/react-loader-spinner/dist/loader/index.js ***!
+  \****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (global, factory) {
+  if (true) {
+    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [exports, __webpack_require__(/*! ./Circles */ "./node_modules/react-loader-spinner/dist/loader/Circles.js"), __webpack_require__(/*! ./Watch */ "./node_modules/react-loader-spinner/dist/loader/Watch.js"), __webpack_require__(/*! ./Audio */ "./node_modules/react-loader-spinner/dist/loader/Audio.js"), __webpack_require__(/*! ./BallTriangle */ "./node_modules/react-loader-spinner/dist/loader/BallTriangle.js"), __webpack_require__(/*! ./Bars */ "./node_modules/react-loader-spinner/dist/loader/Bars.js"), __webpack_require__(/*! ./CradleLoader */ "./node_modules/react-loader-spinner/dist/loader/CradleLoader.js"), __webpack_require__(/*! ./Grid */ "./node_modules/react-loader-spinner/dist/loader/Grid.js"), __webpack_require__(/*! ./Hearts */ "./node_modules/react-loader-spinner/dist/loader/Hearts.js"), __webpack_require__(/*! ./MutatingDots */ "./node_modules/react-loader-spinner/dist/loader/MutatingDots.js"), __webpack_require__(/*! ./Oval */ "./node_modules/react-loader-spinner/dist/loader/Oval.js"), __webpack_require__(/*! ./Plane */ "./node_modules/react-loader-spinner/dist/loader/Plane.js"), __webpack_require__(/*! ./Puff */ "./node_modules/react-loader-spinner/dist/loader/Puff.js"), __webpack_require__(/*! ./RevolvingDot */ "./node_modules/react-loader-spinner/dist/loader/RevolvingDot.js"), __webpack_require__(/*! ./Rings */ "./node_modules/react-loader-spinner/dist/loader/Rings.js"), __webpack_require__(/*! ./TailSpin */ "./node_modules/react-loader-spinner/dist/loader/TailSpin.js"), __webpack_require__(/*! ./ThreeDots */ "./node_modules/react-loader-spinner/dist/loader/ThreeDots.js"), __webpack_require__(/*! ./Triangle */ "./node_modules/react-loader-spinner/dist/loader/Triangle.js")], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
+				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+  } else { var mod; }
+})(this, function (exports, _Circles, _Watch, _Audio, _BallTriangle, _Bars, _CradleLoader, _Grid, _Hearts, _MutatingDots, _Oval, _Plane, _Puff, _RevolvingDot, _Rings, _TailSpin, _ThreeDots, _Triangle) {
+  "use strict";
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.Spinner = undefined;
+  var Spinner = exports.Spinner = {
+    Circles: _Circles.Circles,
+    Audio: _Audio.Audio,
+    BallTriangle: _BallTriangle.BallTriangle,
+    Bars: _Bars.Bars,
+    CradleLoader: _CradleLoader.CradleLoader,
+    Grid: _Grid.Grid,
+    Hearts: _Hearts.Hearts,
+    MutatingDots: _MutatingDots.MutatingDots,
+    Oval: _Oval.Oval,
+    Plane: _Plane.Plane,
+    Puff: _Puff.Puff,
+    RevolvingDot: _RevolvingDot.RevolvingDot,
+    Rings: _Rings.Rings,
+    TailSpin: _TailSpin.TailSpin,
+    ThreeDots: _ThreeDots.ThreeDots,
+    Triangle: _Triangle.Triangle,
+    Watch: _Watch.Watch
+  };
+});
+
+/***/ }),
+
+/***/ "./node_modules/react-loader-spinner/index.js":
+/*!****************************************************!*\
+  !*** ./node_modules/react-loader-spinner/index.js ***!
+  \****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(/*! ./dist/index */ "./node_modules/react-loader-spinner/dist/index.js");
+
+/***/ }),
+
 /***/ "./node_modules/react-redux/es/components/Context.js":
 /*!***********************************************************!*\
   !*** ./node_modules/react-redux/es/components/Context.js ***!
@@ -65572,6 +67781,25 @@ function setRegion(region) {
 
 /***/ }),
 
+/***/ "./src/actions/theme.js":
+/*!******************************!*\
+  !*** ./src/actions/theme.js ***!
+  \******************************/
+/*! exports provided: setTheme */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setTheme", function() { return setTheme; });
+function setTheme(theme) {
+  return {
+    type: 'SET_THEME',
+    theme
+  };
+}
+
+/***/ }),
+
 /***/ "./src/components/App.jsx":
 /*!********************************!*\
   !*** ./src/components/App.jsx ***!
@@ -65583,13 +67811,13 @@ function setRegion(region) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _NavBar__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./NavBar */ "./src/components/NavBar.jsx");
+/* harmony import */ var _containers_NavBarContainer__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../containers/NavBarContainer */ "./src/containers/NavBarContainer.js");
 /* harmony import */ var _Content__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Content */ "./src/components/Content.jsx");
 
 
 
 
-const App = () => react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_NavBar__WEBPACK_IMPORTED_MODULE_1__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Content__WEBPACK_IMPORTED_MODULE_2__["default"], null));
+const App = () => react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_containers_NavBarContainer__WEBPACK_IMPORTED_MODULE_1__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Content__WEBPACK_IMPORTED_MODULE_2__["default"], null));
 
 /* harmony default export */ __webpack_exports__["default"] = (App);
 
@@ -65651,21 +67879,24 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-const NavBar = () => react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("nav", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+const NavBar = props => react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("nav", {
+  className: `nav--${props.theme}`
+}, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
   className: "nav-wrapper"
 }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
   className: "nav-wrapper__title"
 }, "Where in the world?"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-  className: "nav-wrapper__dark-mode"
+  className: "nav-wrapper__theme",
+  onClick: () => props.toggleTheme(props.theme)
 }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_1__["FontAwesomeIcon"], {
-  icon: true ? _fortawesome_free_regular_svg_icons__WEBPACK_IMPORTED_MODULE_3__["faMoon"] : undefined,
+  icon: props.theme === 'light' ? _fortawesome_free_regular_svg_icons__WEBPACK_IMPORTED_MODULE_3__["faMoon"] : _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_2__["faMoon"],
   size: "lg",
   transform: {
     rotate: -25
   }
 }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-  className: "nav-wrapper__dark-mode--text"
-}, "Dark Mode"))));
+  className: "nav-wrapper__theme--text"
+}, props.theme === 'light' ? 'Dark Mode' : 'Light Mode'))));
 
 /* harmony default export */ __webpack_exports__["default"] = (NavBar);
 
@@ -65685,7 +67916,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 /* harmony import */ var _fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @fortawesome/react-fontawesome */ "./node_modules/@fortawesome/react-fontawesome/index.es.js");
 /* harmony import */ var _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @fortawesome/free-solid-svg-icons */ "./node_modules/@fortawesome/free-solid-svg-icons/index.es.js");
-/* harmony import */ var _utils_formatter__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../utils/formatter */ "./src/utils/formatter.js");
+/* harmony import */ var react_loader_spinner__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-loader-spinner */ "./node_modules/react-loader-spinner/index.js");
+/* harmony import */ var react_loader_spinner__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(react_loader_spinner__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _utils_formatter__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../utils/formatter */ "./src/utils/formatter.js");
+
 
 
 
@@ -65700,24 +67934,25 @@ class Country extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
   render() {
     const {
       country,
-      handleBorder
+      handleBorder,
+      theme
     } = this.props;
 
     const handleBorders = border => react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
       key: border,
-      className: "btn button border",
+      className: `btn button border button--${theme}`,
       to: `/country/${border}`,
       onClick: () => handleBorder(border)
     }, border);
 
     return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
-      className: "country"
+      className: `country country--${theme}`
     }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       className: "row back"
     }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       className: "col s12"
     }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
-      className: "btn button",
+      className: `btn button button--${theme}`,
       to: "/"
     }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_2__["FontAwesomeIcon"], {
       icon: _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_3__["faArrowLeft"],
@@ -65743,7 +67978,7 @@ class Country extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
       className: "block"
     }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
       className: "info"
-    }, "Population: "), Object(_utils_formatter__WEBPACK_IMPORTED_MODULE_4__["numberWithCommas"])(country.population)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+    }, "Population: "), Object(_utils_formatter__WEBPACK_IMPORTED_MODULE_5__["numberWithCommas"])(country.population)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
       className: "block"
     }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
       className: "info"
@@ -65767,7 +68002,12 @@ class Country extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
       className: "block"
     }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
       className: "info"
-    }, "Borders: "), country.borders.length > 0 ? country.borders.map(border => handleBorders(border)) : 'None')))) : null);
+    }, "Borders: "), country.borders.length > 0 ? country.borders.map(border => handleBorders(border)) : 'None')))) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_loader_spinner__WEBPACK_IMPORTED_MODULE_4___default.a, {
+      type: "Puff",
+      color: "#00BFFF",
+      height: "100",
+      width: "100"
+    }));
   }
 
 }
@@ -65811,7 +68051,8 @@ class Home extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
       region,
       handleFilterRegion,
       history,
-      handleSelectCountry
+      handleSelectCountry,
+      theme
     } = this.props;
     const regionsFilter = [{
       value: '',
@@ -65862,7 +68103,7 @@ class Home extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
     }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
       src: country.flag
     })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-      className: "card-content"
+      className: `card-content card-content--${theme}`
     }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
       className: "card-title"
     }, country.name), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
@@ -65874,11 +68115,11 @@ class Home extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
     }, "Capital: "), country.capital)))));
 
     return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
-      className: "home"
+      className: `home home--${theme}`
     }, countriesLoaded ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       className: "row search-filter"
     }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-      className: "col s12 m6 l5 xl5"
+      className: `col s12 m6 l5 xl5 search search--${theme}`
     }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_search_box__WEBPACK_IMPORTED_MODULE_2__["default"], {
       placeholder: "Search for a country...",
       data: countriesSearch,
@@ -65886,7 +68127,8 @@ class Home extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
     })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       className: "col s12 m6 l3 xl3 filter-float"
     }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_select__WEBPACK_IMPORTED_MODULE_3__["default"], {
-      className: "filter",
+      className: `filter filter--${theme}`,
+      classNamePrefix: `filter--${theme}`,
       placeholder: "Filter by Region",
       value: region,
       onChange: handleFilterRegion,
@@ -65899,6 +68141,41 @@ class Home extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
 }
 
 /* harmony default export */ __webpack_exports__["default"] = (Home);
+
+/***/ }),
+
+/***/ "./src/containers/NavBarContainer.js":
+/*!*******************************************!*\
+  !*** ./src/containers/NavBarContainer.js ***!
+  \*******************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var _actions_theme__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../actions/theme */ "./src/actions/theme.js");
+/* harmony import */ var _components_NavBar__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/NavBar */ "./src/components/NavBar.jsx");
+
+
+
+
+
+const mapStateToProps = state => {
+  return {
+    theme: state.theme
+  };
+};
+
+const mapDispatchToProps = dispatch => ({
+  toggleTheme: theme => {
+    const newtheme = theme === 'light' ? 'dark' : 'light';
+    dispatch(Object(_actions_theme__WEBPACK_IMPORTED_MODULE_2__["setTheme"])(newtheme));
+  }
+});
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["withRouter"])(Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(mapStateToProps, mapDispatchToProps)(_components_NavBar__WEBPACK_IMPORTED_MODULE_3__["default"])));
 
 /***/ }),
 
@@ -65925,7 +68202,8 @@ const fields = 'fields=flag;name;nativeName;population;region;subregion;capital;
 
 const mapStateToProps = state => {
   return {
-    country: state.country
+    country: state.country,
+    theme: state.theme
   };
 };
 
@@ -65971,7 +68249,8 @@ __webpack_require__.r(__webpack_exports__);
 const mapStateToProps = state => {
   return {
     countries: state.countries,
-    region: state.region
+    region: state.region,
+    theme: state.theme
   };
 };
 
@@ -66090,6 +68369,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _countries__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./countries */ "./src/reducers/countries.js");
 /* harmony import */ var _country__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./country */ "./src/reducers/country.js");
 /* harmony import */ var _region__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./region */ "./src/reducers/region.js");
+/* harmony import */ var _theme__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./theme */ "./src/reducers/theme.js");
+
 
 
 
@@ -66097,7 +68378,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = (Object(redux__WEBPACK_IMPORTED_MODULE_0__["combineReducers"])({
   countries: _countries__WEBPACK_IMPORTED_MODULE_1__["countries"],
   country: _country__WEBPACK_IMPORTED_MODULE_2__["country"],
-  region: _region__WEBPACK_IMPORTED_MODULE_3__["region"]
+  region: _region__WEBPACK_IMPORTED_MODULE_3__["region"],
+  theme: _theme__WEBPACK_IMPORTED_MODULE_4__["theme"]
 }));
 
 /***/ }),
@@ -66116,6 +68398,28 @@ function region(state = '', action) {
   switch (action.type) {
     case 'SET_REGION':
       return action.region;
+
+    default:
+      return state;
+  }
+}
+
+/***/ }),
+
+/***/ "./src/reducers/theme.js":
+/*!*******************************!*\
+  !*** ./src/reducers/theme.js ***!
+  \*******************************/
+/*! exports provided: theme */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "theme", function() { return theme; });
+function theme(state = 'light', action) {
+  switch (action.type) {
+    case 'SET_THEME':
+      return action.theme;
 
     default:
       return state;

@@ -2,6 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import Search from 'react-search-box'
 import Select from 'react-select'
+import Loader from 'react-loader-spinner'
 
 import { numberWithCommas } from '../../utils/formatter'
 import { shuffle } from '../../utils/shuffler'
@@ -13,7 +14,15 @@ class Home extends React.Component {
   }
 
   render() {
-    const { countries, handleSearchCountry, region, handleFilterRegion, history, handleSelectCountry } = this.props
+    const { countries,
+      handleSearchCountry,
+      region,
+      handleFilterRegion,
+      history,
+      handleSelectCountry,
+      theme
+    } = this.props
+    
     const regionsFilter = [
       { value: '', label: 'All' },
       { value: 'Africa', label: 'Africa' },
@@ -43,7 +52,7 @@ class Home extends React.Component {
             <div className="card-image">
               <img src={country.flag} />
             </div>
-            <div className="card-content">
+            <div className={`card-content card-content--${theme}`}>
               <span className="card-title">
                 {country.name}
               </span>
@@ -63,11 +72,11 @@ class Home extends React.Component {
     )
     
     return (
-      <section className="home">
+      <section className={`home home--${theme}`}>
       {countriesLoaded ?
         <>
           <div className="row search-filter">
-            <div className="col s12 m6 l5 xl5">
+            <div className={`col s12 m6 l5 xl5 search search--${theme}`}>
               <Search
                 placeholder="Search for a country..."
                 data={countriesSearch}
@@ -76,7 +85,8 @@ class Home extends React.Component {
             </div>
             <div className="col s12 m6 l3 xl3 filter-float">
               <Select
-                className="filter" 
+                className={`filter filter--${theme}`}
+                classNamePrefix={`filter--${theme}`}
                 placeholder="Filter by Region"
                 value={region}
                 onChange={handleFilterRegion}
@@ -87,7 +97,14 @@ class Home extends React.Component {
           <div className="row">
             {countriesToShow.map(country => handleCountry(country))}
           </div>
-        </> : null}
+        </> :
+        <Loader
+          className="loader"
+          type="Grid"
+          color={theme === 'light' ? '#CCC' : '#FFF'}
+          height={80}
+          width={80}
+        /> }
     </section>
     )
   }

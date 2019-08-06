@@ -1,23 +1,45 @@
 .country {
   background-color: $color-background;
-  padding: 0 60px;
+  padding: 50px 60px 0px 60px;
+  height: calc(100vh - 90px);
 
   .back {
-    margin-top: 50px;
-    margin-bottom: 35px;
+    margin-bottom: 60px;
   }
 
   .button {
-    color: $color-primary;
-    background-color: $color-white;
-
     &__text {
       margin-left: 10px;
     }
   }
 
-  .button:hover {
+  .button--light {
+    color: $color-primary;
     background-color: $color-white;
+  }
+
+  .button--dark {
+    color: $color-white;
+    background-color: $color-primary-dark;
+  }
+
+  .button--light:hover,
+  .button--light:focus {
+    background-color: $color-secondary !important;
+  }
+
+  .button--dark:hover,
+  .button--dark:focus {
+    background-color: $color-background-dark !important;
+  }
+
+  .loader {
+    margin: 25%;
+
+    svg {
+      display: block;
+      margin: auto;
+    }
   }
 
   .border {
@@ -41,4 +63,14 @@
       font-weight: 600;
     }
   }
+}
+
+.country--light {
+  background-color: $color-white;
+  color: $color-primary;
+}
+
+.country--dark {
+  background-color: $color-background-dark;
+  color: $color-white;
 }

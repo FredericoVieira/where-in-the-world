@@ -4,10 +4,13 @@ import { setCountry } from '../../actions/country'
 import Country from '../../components/content/Country'
 import requester from '../../resources/requester'
 
+
 const fields = 'fields=flag;name;nativeName;population;region;subregion;capital;topLevelDomain;currencies;languages;borders'
+
 const mapStateToProps = (state) => {
   return {
     country: state.country,
+    theme: state.theme
   }
 }
 

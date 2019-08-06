@@ -11,6 +11,7 @@ const mapStateToProps = (state) => {
   return {
     countries: state.countries,
     region: state.region,
+    theme: state.theme
   }
 }
 

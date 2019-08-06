@@ -2,6 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeft} from '@fortawesome/free-solid-svg-icons'
+import Loader from 'react-loader-spinner'
 
 import { numberWithCommas } from '../../utils/formatter'
 
@@ -12,11 +13,11 @@ class Country extends React.Component {
   }
 
   render() {
-    const { country, handleBorder } = this.props
+    const { country, handleBorder, theme } = this.props
 
     const handleBorders = (border) => <Link
       key={border}
-      className="btn button border"
+      className={`btn button border button--${theme}`}
       to={`/country/${border}`}
       onClick={() => handleBorder(border)}
     >
@@ -24,10 +25,10 @@ class Country extends React.Component {
     </Link>
     
     return (
-      <section className="country">
+      <section className={`country country--${theme}`}>
         <div className="row back">
           <div className="col s12">
-            <Link className="btn button" to="/">
+            <Link className={`btn button button--${theme}`} to="/">
               <FontAwesomeIcon icon={faArrowLeft} size="lg"/> <span className="button__text">Back</span>
             </Link>
           </div>
@@ -69,7 +70,14 @@ class Country extends React.Component {
               
             </div>
           </div>
-        </> : null }
+        </> : 
+        <Loader
+          className="loader"
+          type="Grid"
+          color={theme === 'light' ? '#CCC' : '#FFF'}
+          height={80}
+          width={80}
+        /> }
     </section>
     )
   }
