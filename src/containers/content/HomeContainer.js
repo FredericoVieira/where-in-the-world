@@ -1,16 +1,16 @@
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
-import { setCountries } from '../../actions/countries'
-import { setRegion } from '../../actions/region'
-import { clearCountry } from '../../actions/country'
+import { setCountries, clearCountry } from '../../actions/countries'
+import { setRegion } from '../../actions/regions'
 import Home from '../../components/content/Home'
 import requester from '../../resources/requester'
 
 
 const mapStateToProps = (state) => {
   return {
-    countries: state.countries,
-    region: state.region,
+    countries: state.countries.options,
+    selectedRegion: state.regions.selected,
+    regions: state.regions.options,
     theme: state.theme
   }
 }

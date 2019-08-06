@@ -63,7 +63,7 @@
 /******/
 /******/ 	var hotApplyOnUpdate = true;
 /******/ 	// eslint-disable-next-line no-unused-vars
-/******/ 	var hotCurrentHash = "df452c707c849c39843a";
+/******/ 	var hotCurrentHash = "9a291b3826181a4f4a32";
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule;
@@ -18158,7 +18158,7 @@ exports = module.exports = __webpack_require__(/*! ../../node_modules/css-loader
 exports.push([module.i, "@import url(https://fonts.googleapis.com/css?family=Nunito:300,600,800);", ""]);
 
 // module
-exports.push([module.i, "*,\n*::after,\n*::before {\n  margin: 0;\n  padding: 0;\n  box-sizing: inherit; }\n\nhtml {\n  font-size: 62.5%; }\n\nbody {\n  box-sizing: border-box; }\n\nhtml, body, #app {\n  height: 100%;\n  background-color: #fafafa; }\n\nbody {\n  color: #111517;\n  font-size: 14px;\n  font-family: 'Nunito';\n  font-weight: 300; }\n\n.country {\n  background-color: #fafafa;\n  padding: 50px 60px 0px 60px;\n  height: calc(100vh - 90px); }\n  .country .back {\n    margin-bottom: 60px; }\n  .country .button__text {\n    margin-left: 10px; }\n  .country .button--light {\n    color: #111517;\n    background-color: white; }\n  .country .button--dark {\n    color: white;\n    background-color: #2b3945; }\n  .country .button--light:hover,\n  .country .button--light:focus {\n    background-color: white !important; }\n  .country .button--dark:hover,\n  .country .button--dark:focus {\n    background-color: #2b3945 !important; }\n  .country .border {\n    margin: 0px 5px; }\n  .country .flag {\n    width: 100%; }\n  .country .title {\n    font-size: 24px;\n    font-weight: 600; }\n  .country .block {\n    margin: 10px 0px;\n    font-size: 16px; }\n    .country .block .info {\n      font-weight: 600; }\n\n.country--light {\n  background-color: white;\n  color: #111517; }\n\n.country--dark {\n  background-color: #202c37;\n  color: white; }\n\n.home {\n  padding: 50px 60px 0px 60px; }\n  .home .search-filter {\n    margin-bottom: 10px;\n    padding: 0px 20px; }\n    .home .search-filter .filter-float {\n      float: right !important; }\n  .home .card {\n    margin: 40px 20px;\n    border-radius: 5px;\n    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1); }\n    .home .card img {\n      border-radius: 5px 5px 0 0 !important;\n      height: 150px;\n      object-fit: cover; }\n    .home .card .card-content .card-title {\n      white-space: nowrap;\n      width: 100%;\n      overflow: hidden;\n      -o-text-overflow: ellipsis;\n      text-overflow: ellipsis;\n      font-weight: 600; }\n    .home .card .card-content .card-info {\n      font-weight: 600; }\n    .home .card .card-content--light {\n      color: #111517; }\n    .home .card .card-content--dark {\n      color: white;\n      background-color: #2b3945; }\n\n.home--light {\n  background-color: white !important;\n  color: #111517 !important; }\n\n.home--dark {\n  background-color: #202c37 !important;\n  color: white !important; }\n\n.search .styled-component__StyledInput-sc-1dsackt-0 {\n  border-bottom: none !important;\n  height: 63px !important;\n  font-size: 14px !important;\n  padding-left: 10px !important;\n  font-family: Nunito !important;\n  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1) !important;\n  border-radius: 5px !important;\n  margin: 0px !important; }\n\n.search--light .styled-component__StyledInput-sc-1dsackt-0 {\n  background-color: white !important; }\n\n.search--light .styled-component__StyledInput-sc-1dsackt-0::placeholder {\n  color: #cccccc;\n  opacity: 1; }\n\n.search--dark .styled-component__StyledInput-sc-1dsackt-0 {\n  color: white !important;\n  background-color: #2b3945 !important; }\n\n.search--dark .styled-component__StyledInput-sc-1dsackt-0::placeholder {\n  color: white;\n  opacity: 1; }\n\n.search > div .react-search-box-dropdown {\n  position: absolute;\n  z-index: 1;\n  margin-top: 75px; }\n\n.search--dark > div .react-search-box-dropdown {\n  color: white; }\n  .search--dark > div .react-search-box-dropdown ul > li {\n    background-color: #2b3945;\n    border: 1px solid #202c37; }\n  .search--dark > div .react-search-box-dropdown ul > li:hover {\n    background-color: #202c37; }\n\n.filter .filter--light__control {\n  border-color: white !important;\n  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1); }\n\n.filter .filter--light__control--is-focused {\n  border-color: white !important; }\n\n.filter .filter--light__option--is-focused {\n  background-color: #cccccc; }\n\n.filter .filter--light__placeholder {\n  color: #cccccc; }\n\n.filter .filter--light__indicator-separator,\n.filter .filter--dark__indicator-separator {\n  display: none; }\n\n.filter .filter--dark__control {\n  background-color: #2b3945;\n  border-color: #2b3945 !important;\n  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1); }\n\n.filter .filter--dark__placeholder {\n  color: white; }\n\n.filter .filter--dark__menu {\n  background-color: #2b3945; }\n\n.filter .filter--dark__option--is-focused {\n  background-color: #202c37; }\n\nnav {\n  height: 90px !important;\n  line-height: 90px !important;\n  position: relative; }\n\n.nav--light {\n  background-color: white !important;\n  color: #111517 !important; }\n\n.nav--dark {\n  background-color: #2b3945 !important;\n  color: white !important; }\n\n.nav-wrapper__title {\n  margin-left: 50px;\n  font-size: 24px;\n  font-weight: 800; }\n\n.nav-wrapper__theme {\n  float: right;\n  margin-right: 50px;\n  cursor: pointer; }\n  .nav-wrapper__theme--text {\n    margin-left: 10px;\n    font-size: 18px;\n    font-weight: 600; }\n", ""]);
+exports.push([module.i, "*,\n*::after,\n*::before {\n  margin: 0;\n  padding: 0;\n  box-sizing: inherit; }\n\nhtml {\n  font-size: 62.5%; }\n\nbody {\n  box-sizing: border-box; }\n\nhtml, body, #app {\n  height: 100%; }\n\nbody {\n  color: #111517;\n  font-size: 14px;\n  font-family: 'Nunito';\n  font-weight: 300; }\n\n.country {\n  background-color: #fafafa;\n  padding: 50px 60px 0px 60px;\n  min-height: calc(100% - 90px); }\n  .country .row {\n    margin-bottom: 0px; }\n  .country .back {\n    margin-bottom: 60px; }\n  .country .button__text {\n    margin-left: 10px; }\n  .country .button--light {\n    color: #111517;\n    background-color: white; }\n  .country .button--dark {\n    color: white;\n    background-color: #2b3945; }\n  .country .button--light:hover,\n  .country .button--light:focus {\n    background-color: #858585 !important; }\n  .country .button--dark:hover,\n  .country .button--dark:focus {\n    background-color: #202c37 !important; }\n  .country .loader {\n    padding: 25%; }\n    .country .loader svg {\n      display: block;\n      margin: auto; }\n  .country .border {\n    margin: 0px 5px; }\n  .country .flag {\n    width: 100%; }\n  .country .title {\n    font-size: 24px;\n    font-weight: 600; }\n  .country .block {\n    margin: 10px 0px;\n    font-size: 16px; }\n    .country .block .info {\n      font-weight: 600; }\n\n.country--light {\n  background-color: white;\n  color: #111517; }\n\n.country--dark {\n  background-color: #202c37;\n  color: white; }\n\n.home {\n  padding: 50px 60px 0px 60px;\n  min-height: calc(100% - 90px); }\n  .home .row {\n    margin-bottom: 0px; }\n  .home .loader {\n    padding: 25%; }\n    .home .loader svg {\n      display: block;\n      margin: auto; }\n  .home .search-filter {\n    margin-bottom: 10px;\n    padding: 0px 20px; }\n    .home .search-filter .filter-float {\n      float: right !important; }\n  .home .card {\n    margin: 40px 20px;\n    border-radius: 5px;\n    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1); }\n    .home .card img {\n      border-radius: 5px 5px 0 0 !important;\n      height: 150px;\n      object-fit: cover; }\n    .home .card .card-content .card-title {\n      white-space: nowrap;\n      width: 100%;\n      overflow: hidden;\n      -o-text-overflow: ellipsis;\n      text-overflow: ellipsis;\n      font-weight: 600; }\n    .home .card .card-content .card-info {\n      font-weight: 600; }\n    .home .card .card-content--light {\n      color: #111517; }\n    .home .card .card-content--dark {\n      color: white;\n      background-color: #2b3945; }\n\n.home--light {\n  background-color: white !important;\n  color: #111517 !important; }\n\n.home--dark {\n  background-color: #202c37 !important;\n  color: white !important; }\n\n.search .styled-component__StyledInput-sc-1dsackt-0 {\n  border-bottom: none !important;\n  height: 64px !important;\n  font-size: 14px !important;\n  padding-left: 10px !important;\n  font-family: Nunito !important;\n  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1) !important;\n  border-radius: 5px !important;\n  margin: 0px !important; }\n\n.search--light .styled-component__StyledInput-sc-1dsackt-0 {\n  background-color: white !important; }\n\n.search--light .styled-component__StyledInput-sc-1dsackt-0::placeholder {\n  color: #cccccc;\n  opacity: 1; }\n\n.search--dark .styled-component__StyledInput-sc-1dsackt-0 {\n  color: white !important;\n  background-color: #2b3945 !important; }\n\n.search--dark .styled-component__StyledInput-sc-1dsackt-0::placeholder {\n  color: white;\n  opacity: 1; }\n\n.search > div .react-search-box-dropdown {\n  position: absolute;\n  z-index: 1;\n  margin-top: 75px; }\n\n.search--dark > div .react-search-box-dropdown {\n  color: white; }\n  .search--dark > div .react-search-box-dropdown ul > li {\n    background-color: #2b3945;\n    border: 1px solid #202c37; }\n  .search--dark > div .react-search-box-dropdown ul > li:hover {\n    background-color: #202c37; }\n\n.filter .filter--light__control {\n  border-color: white !important;\n  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1); }\n\n.filter .filter--light__control--is-focused {\n  border-color: white !important; }\n\n.filter .filter--light__option--is-focused {\n  background-color: #cccccc; }\n\n.filter .filter--light__placeholder {\n  color: #cccccc; }\n\n.filter .filter--light__indicator-separator,\n.filter .filter--dark__indicator-separator {\n  display: none; }\n\n.filter .filter--dark__control {\n  background-color: #2b3945;\n  border-color: #2b3945 !important;\n  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1); }\n\n.filter .filter--dark__placeholder {\n  color: white; }\n\n.filter .filter--dark__menu {\n  background-color: #2b3945; }\n\n.filter .filter--dark__option--is-focused {\n  background-color: #202c37; }\n\nnav {\n  height: 90px !important;\n  line-height: 90px !important;\n  position: relative; }\n\n.nav--light {\n  background-color: white !important;\n  color: #111517 !important; }\n\n.nav--dark {\n  background-color: #2b3945 !important;\n  color: white !important; }\n\n.nav-wrapper__title {\n  margin-left: 50px;\n  font-size: 24px;\n  font-weight: 800; }\n\n.nav-wrapper__theme {\n  float: right;\n  margin-right: 50px;\n  cursor: pointer; }\n  .nav-wrapper__theme--text {\n    margin-left: 10px;\n    font-size: 18px;\n    font-weight: 600; }\n", ""]);
 
 // exports
 
@@ -68003,10 +68003,11 @@ class Country extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
     }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
       className: "info"
     }, "Borders: "), country.borders.length > 0 ? country.borders.map(border => handleBorders(border)) : 'None')))) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_loader_spinner__WEBPACK_IMPORTED_MODULE_4___default.a, {
-      type: "Puff",
-      color: "#00BFFF",
-      height: "100",
-      width: "100"
+      className: "loader",
+      type: "Grid",
+      color: theme === 'light' ? '#CCC' : '#FFF',
+      height: 80,
+      width: 80
     }));
   }
 
@@ -68030,8 +68031,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 /* harmony import */ var react_search_box__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-search-box */ "./node_modules/react-search-box/dist/index.es.js");
 /* harmony import */ var react_select__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-select */ "./node_modules/react-select/dist/react-select.browser.esm.js");
-/* harmony import */ var _utils_formatter__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../utils/formatter */ "./src/utils/formatter.js");
-/* harmony import */ var _utils_shuffler__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../utils/shuffler */ "./src/utils/shuffler.js");
+/* harmony import */ var react_loader_spinner__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-loader-spinner */ "./node_modules/react-loader-spinner/index.js");
+/* harmony import */ var react_loader_spinner__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(react_loader_spinner__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _utils_formatter__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../utils/formatter */ "./src/utils/formatter.js");
+/* harmony import */ var _utils_shuffler__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../utils/shuffler */ "./src/utils/shuffler.js");
+
 
 
 
@@ -68052,27 +68056,9 @@ class Home extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
       handleFilterRegion,
       history,
       handleSelectCountry,
-      theme
+      theme,
+      regions
     } = this.props;
-    const regionsFilter = [{
-      value: '',
-      label: 'All'
-    }, {
-      value: 'Africa',
-      label: 'Africa'
-    }, {
-      value: 'Americas',
-      label: 'Americas'
-    }, {
-      value: 'Asia',
-      label: 'Asia'
-    }, {
-      value: 'Europe',
-      label: 'Europe'
-    }, {
-      value: 'Oceania',
-      label: 'Oceania'
-    }];
     let countriesEligibles, countriesToShow, countriesLoaded, countriesSearch;
 
     if (countries.length > 0) {
@@ -68087,7 +68073,7 @@ class Home extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
       }, {
         value: country.name
       }));
-      countriesToShow = Object(_utils_shuffler__WEBPACK_IMPORTED_MODULE_5__["shuffle"])(countriesEligibles);
+      countriesToShow = Object(_utils_shuffler__WEBPACK_IMPORTED_MODULE_6__["shuffle"])(countriesEligibles);
     }
 
     const handleCountry = country => react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -68108,7 +68094,7 @@ class Home extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
       className: "card-title"
     }, country.name), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
       className: "card-info"
-    }, "Population: "), Object(_utils_formatter__WEBPACK_IMPORTED_MODULE_4__["numberWithCommas"])(country.population)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+    }, "Population: "), Object(_utils_formatter__WEBPACK_IMPORTED_MODULE_5__["numberWithCommas"])(country.population)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
       className: "card-info"
     }, "Region: "), country.region), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
       className: "card-info"
@@ -68135,7 +68121,13 @@ class Home extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
       options: regionsFilter
     }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       className: "row"
-    }, countriesToShow.map(country => handleCountry(country)))) : null);
+    }, countriesToShow.map(country => handleCountry(country)))) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_loader_spinner__WEBPACK_IMPORTED_MODULE_4___default.a, {
+      className: "loader",
+      type: "Grid",
+      color: theme === 'light' ? '#CCC' : '#FFF',
+      height: 80,
+      width: 80
+    }));
   }
 
 }
@@ -68249,7 +68241,8 @@ __webpack_require__.r(__webpack_exports__);
 const mapStateToProps = state => {
   return {
     countries: state.countries,
-    region: state.region,
+    region: state.region.selected,
+    regions: state.region.options,
     theme: state.theme
   };
 };
@@ -68394,10 +68387,34 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "region", function() { return region; });
-function region(state = '', action) {
+const initialState = {
+  selected: '',
+  options: [{
+    value: '',
+    label: 'All'
+  }, {
+    value: 'Africa',
+    label: 'Africa'
+  }, {
+    value: 'Americas',
+    label: 'Americas'
+  }, {
+    value: 'Asia',
+    label: 'Asia'
+  }, {
+    value: 'Europe',
+    label: 'Europe'
+  }, {
+    value: 'Oceania',
+    label: 'Oceania'
+  }]
+};
+function region(state = initialState, action) {
   switch (action.type) {
     case 'SET_REGION':
-      return action.region;
+      return { ...state,
+        selected: action.region
+      };
 
     default:
       return state;

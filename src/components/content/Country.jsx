@@ -13,7 +13,7 @@ class Country extends React.Component {
   }
 
   render() {
-    const { country, handleBorder, theme } = this.props
+    const { selectedCountry, handleBorder, theme } = this.props
 
     const handleBorders = (border) => <Link
       key={border}
@@ -33,39 +33,39 @@ class Country extends React.Component {
             </Link>
           </div>
         </div>
-        { 'name' in country ?
+        { 'name' in selectedCountry ?
         <>
           <div className="row">
             <div className="col s12 m6">
-              <img className="flag" src={country.flag} />
+              <img className="flag" src={selectedCountry.flag} />
             </div>
             <div className="col s12 m5 offset-m1">
               <span className="title">
-                {country.name}
+                {selectedCountry.name}
               </span>
               <p className="block">
-                <span className="info">Native Name: </span>{country.nativeName}
+                <span className="info">Native Name: </span>{selectedCountry.nativeName}
               </p>
               <p className="block">
-                <span className="info">Population: </span>{numberWithCommas(country.population)}
+                <span className="info">Population: </span>{numberWithCommas(selectedCountry.population)}
               </p>
               <p className="block">
-                <span className="info">Region: </span>{country.region}
+                <span className="info">Region: </span>{selectedCountry.region}
               </p>
               <p className="block">
-                <span className="info">Capital: </span>{country.capital}
+                <span className="info">Capital: </span>{selectedCountry.capital}
               </p>
               <p className="block">
-                <span className="info">Top Level Domain: </span>{country.topLevelDomain.join(', ')}
+                <span className="info">Top Level Domain: </span>{selectedCountry.topLevelDomain.join(', ')}
               </p>
               <p className="block">
-                <span className="info">Currencies: </span>{country.currencies.map(currency => currency.name).join(',')}
+                <span className="info">Currencies: </span>{selectedCountry.currencies.map(currency => currency.name).join(',')}
               </p>
               <p className="block">
-                <span className="info">Languages: </span>{country.languages.map(language => language.name).join(', ')}
+                <span className="info">Languages: </span>{selectedCountry.languages.map(language => language.name).join(', ')}
               </p>
               <p className="block">
-                <span className="info">Borders: </span>{country.borders.length > 0 ? country.borders.map(border => handleBorders(border)) : 'None'}
+                <span className="info">Borders: </span>{selectedCountry.borders.length > 0 ? selectedCountry.borders.map(border => handleBorders(border)) : 'None'}
               </p>
               
             </div>

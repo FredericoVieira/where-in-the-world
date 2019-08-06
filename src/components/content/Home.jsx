@@ -14,34 +14,27 @@ class Home extends React.Component {
   }
 
   render() {
-    const { countries,
+    const {
+      countries,
       handleSearchCountry,
-      region,
+      selectedRegion,
+      regions,
       handleFilterRegion,
-      history,
       handleSelectCountry,
-      theme
+      theme,
+      history,
     } = this.props
-    
-    const regionsFilter = [
-      { value: '', label: 'All' },
-      { value: 'Africa', label: 'Africa' },
-      { value: 'Americas', label: 'Americas' },
-      { value: 'Asia', label: 'Asia' },
-      { value: 'Europe', label: 'Europe' },
-      { value: 'Oceania', label: 'Oceania' }
-    ]
 
     let countriesEligibles, countriesToShow, countriesLoaded, countriesSearch
 
     if (countries.length > 0) {
       countriesLoaded = true
       
-      if(region) {
-        countriesEligibles = countries.filter(country => country.region === region)
+      if (selectedRegion) {
+        countriesEligibles = countries.filter(country => country.region === selectedRegion)
       } else countriesEligibles = countries
       
-      countriesSearch = countries.map(country => Object.assign({}, { key: country.name }, { value: country.name }))
+      countriesSearch = countriesEligibles.map(country => Object.assign({}, { key: country.name }, { value: country.name }))
       countriesToShow = shuffle(countriesEligibles)
     }
 
@@ -88,9 +81,9 @@ class Home extends React.Component {
                 className={`filter filter--${theme}`}
                 classNamePrefix={`filter--${theme}`}
                 placeholder="Filter by Region"
-                value={region}
+                value={selectedRegion}
                 onChange={handleFilterRegion}
-                options={regionsFilter}
+                options={regions}
               />
             </div>
           </div>

@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
-import { setCountry } from '../../actions/country'
+import { setCountry } from '../../actions/countries'
 import Country from '../../components/content/Country'
 import requester from '../../resources/requester'
 
@@ -9,7 +9,7 @@ const fields = 'fields=flag;name;nativeName;population;region;subregion;capital;
 
 const mapStateToProps = (state) => {
   return {
-    country: state.country,
+    selectedCountry: state.countries.selected,
     theme: state.theme
   }
 }
