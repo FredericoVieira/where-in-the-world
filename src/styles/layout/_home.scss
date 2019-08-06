@@ -1,8 +1,13 @@
 .home {
   padding: 50px 60px 0px 60px;
+  min-height: calc(100% - 90px);
+
+  .row {
+    margin-bottom: 0px;
+  }
 
   .loader {
-    margin: 25%;
+    padding: 25%;
 
     svg {
       display: block;

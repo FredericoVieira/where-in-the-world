@@ -1,7 +1,11 @@
 .country {
   background-color: $color-background;
   padding: 50px 60px 0px 60px;
-  height: calc(100vh - 90px);
+  min-height: calc(100% - 90px);
+
+  .row {
+    margin-bottom: 0px;
+  }
 
   .back {
     margin-bottom: 60px;
@@ -34,7 +38,7 @@
   }
 
   .loader {
-    margin: 25%;
+    padding: 25%;
 
     svg {
       display: block;
