@@ -43,9 +43,9 @@ export const handleSelectCountry = (store, country) => {
   setCountry(store, country)
 }
 
-export const handleSearchCountry = (store, selected, history) => {
+export const handleSearchCountry = (store, selected, navigate) => {
   setCountry(store, selected)
-  history.push(`/country/${selected.value}`)
+  navigate(`/country/${selected.value}`)
 }
 
 export const fetchCountries = async store => {

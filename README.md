@@ -15,7 +15,12 @@ yarn install
 
 Build project:
 ```
-yarn build-(dev|prod)
+yarn build-dev
+```
+
+or to production:
+```
+yarn build
 ```
 
 Start project:

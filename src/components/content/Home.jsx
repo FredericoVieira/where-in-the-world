@@ -4,7 +4,7 @@ import Select from 'react-select'
 import Loader from 'react-loader-spinner'
 
 import useGlobal from '../../store'
-import {useRoutes, A} from 'hookrouter'
+import { A, navigate } from 'hookrouter'
 
 import { numberWithCommas } from '../../utils/formatter'
 import { shuffle } from '../../utils/shuffler'
@@ -74,7 +74,7 @@ const Home = () => {
             <Search
               placeholder="Search for a country..."
               data={countriesSearch}
-              onSelect={(selection) => handleSearchCountry(selection, history)}
+              onSelect={(selection) => handleSearchCountry(selection, navigate)}
             />
           </div>
           <div className="col s12 m6 l3 xl3 filter-float">

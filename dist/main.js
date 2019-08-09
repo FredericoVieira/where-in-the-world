@@ -63,7 +63,7 @@
 /******/
 /******/ 	var hotApplyOnUpdate = true;
 /******/ 	// eslint-disable-next-line no-unused-vars
-/******/ 	var hotCurrentHash = "7114106cf4215539eb21";
+/******/ 	var hotCurrentHash = "fe54556aab243b0f560b";
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule;
@@ -64895,9 +64895,9 @@ const setCountryData = (store, countryData) => {
 const handleSelectCountry = (store, country) => {
   setCountry(store, country);
 };
-const handleSearchCountry = (store, selected, history) => {
+const handleSearchCountry = (store, selected, navigate) => {
   setCountry(store, selected);
-  history.push(`/country/${selected.value}`);
+  navigate(`/country/${selected.value}`);
 };
 const fetchCountries = async store => {
   const [, response] = await Object(_resources_requester__WEBPACK_IMPORTED_MODULE_0__["default"])('GET', 'all?fields=flag;name;population;region;capital');
@@ -65317,7 +65317,7 @@ const Home = () => {
     className: "col s12 m6 l4 xl3"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(hookrouter__WEBPACK_IMPORTED_MODULE_5__["A"], {
     href: `/country/${country.name}`,
-    onClick: () => handleSelectCountry(country.name)
+    onClick: () => handleSelectCountry(country.name, hookrouter__WEBPACK_IMPORTED_MODULE_5__["navigate"])
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "card"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
