@@ -1,11 +1,11 @@
 import React from 'react'
-import NavBarContainer from '../containers/NavBarContainer'
+import NavBar from './NavBar'
 import Content from './Content'
 
 
 const App = () => (
   <>
-    <NavBarContainer />
+    <NavBar />
     <Content />
   </>
 )

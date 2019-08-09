@@ -1,5 +1,4 @@
-const initialState = {
-  selected: '',
+const regions = {
   options: [
     { value: '', label: 'All' },
     { value: 'Africa', label: 'Africa' },
@@ -7,14 +6,8 @@ const initialState = {
     { value: 'Asia', label: 'Asia' },
     { value: 'Europe', label: 'Europe' },
     { value: 'Oceania', label: 'Oceania' }
-  ]
+  ],
+  selected: '',
 }
 
-export function regions(state = initialState, action) {
-  switch (action.type) {
-    case 'SET_REGION':
-      return { ...state, selected: action.region }
-    default:
-      return state
-  }
-}
+export default regions

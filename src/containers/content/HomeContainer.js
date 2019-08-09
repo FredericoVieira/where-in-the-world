@@ -16,16 +16,7 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = dispatch => ({
-  fetchCountries: async () => {
-    const [, response] = await requester('GET', 'all?fields=flag;name;population;region;capital')
-    dispatch(setCountries(response.data))
-  },
-  handleSearchCountry: (selection, history) => {
-    dispatch(clearCountry())
-    history.push(`/country/${selection.value}`)
-  },
-  handleFilterRegion: (selection) => dispatch(setRegion(selection.value)),
-  handleSelectCountry: () => dispatch(clearCountry())
+
 })
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Home))

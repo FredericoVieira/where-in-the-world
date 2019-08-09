@@ -1,18 +1,10 @@
-import React from 'react'
-import { Switch, Route } from 'react-router-dom'
-import HomeContainer from '../containers/content/HomeContainer'
-import CountryContainer from '../containers/content/CountryContainer'
+import { useRoutes } from 'hookrouter';
+import routes from '../routes/routes'
 
 
-class Content extends React.Component {
-  render() {
-    return (
-      <Switch>
-        <Route component={HomeContainer} exact path="/"/>
-        <Route component={CountryContainer} path="/country/:country" />
-      </Switch>
-    )
-  }
+const Content = () => {
+  const routeResult = useRoutes(routes)
+  return routeResult || 'Not Found Page'
 }
 
 export default Content
