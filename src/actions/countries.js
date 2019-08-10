@@ -1,16 +1,6 @@
 import requester from '../resources/requester'
 
 
-export const clearCountry = store => {
-  const countries = {
-    ...store.state.countries,
-    selected: {
-      name: null
-    }
-  }
-  store.setState({ ...store.state, countries })
-}
-
 export const setCountries = (store, countriesOptions) => {
   const countries = {
     ...store.state.countries,

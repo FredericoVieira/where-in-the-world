@@ -46,10 +46,10 @@ const Country = ({ country }) => {
       { loaded ?
       <>
         <div className="row">
-          <div className="col s12 m6">
+          <div className="col s12 m4">
             <img className="flag" src={selectedCountry.flag} />
           </div>
-          <div className="col s12 m5 offset-m1">
+          <div className="col s12 m7 offset-m1">
             <span className="title">
               {selectedCountry.name}
             </span>

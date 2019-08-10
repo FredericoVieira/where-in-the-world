@@ -1,7 +1,7 @@
 export const setRegion = (store, region) => {
   const regions = {
     ...store.state.regions,
-    region
+    selected: region
   }
   store.setState({ ...store.state, regions })
 }

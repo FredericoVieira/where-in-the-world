@@ -7,11 +7,18 @@
     margin-bottom: 0px;
   }
 
+  img {
+    border-radius: 5px;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+  }
+
   .back {
     margin-bottom: 60px;
   }
 
   .button {
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+    
     &__text {
       margin-left: 10px;
     }
