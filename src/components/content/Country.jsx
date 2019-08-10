@@ -74,7 +74,7 @@ const Country = ({ country }) => {
             <p className="block">
               <span className="info">Languages: </span>{selectedCountry.languages.map(language => language.name).join(', ')}
             </p>
-            <p className="block">
+            <p className="block block--borders">
               <span className="info">Borders: </span>{selectedCountry.borders.length > 0 ? selectedCountry.borders.map(border => handleBorders(border)) : 'None'}
             </p>
             
