@@ -38,7 +38,7 @@ const Home = () => {
   useEffect(() => {
       if (selectedRegion) {
         const countriesToShow = countriesOptions.filter(country => country.region === selectedRegion)
-        localSetState({ ...localState, countriesToShow })
+        localSetState({ ...localState, loaded: true, countriesToShow })
       }
   }, [selectedRegion]) // TODO: Search over exibited countries; Search component not update on countriesSearch array updated
 
