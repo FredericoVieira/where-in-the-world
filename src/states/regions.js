@@ -1,13 +1,13 @@
 const regions = {
   options: [
-    { value: '', label: 'All' },
+    { value: 'All', label: 'All' },
     { value: 'Africa', label: 'Africa' },
     { value: 'Americas', label: 'Americas' },
     { value: 'Asia', label: 'Asia' },
     { value: 'Europe', label: 'Europe' },
     { value: 'Oceania', label: 'Oceania' }
   ],
-  selected: '',
+  selected: 'All',
 }
 
 export default regions
