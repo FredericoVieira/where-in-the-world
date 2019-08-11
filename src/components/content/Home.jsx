@@ -29,7 +29,7 @@ const Home = () => {
     if (countriesOptions.length > 0) {
       const countriesToShow = selectedRegion === 'All' ? countriesOptions : countriesOptions.filter(country => country.region === selectedRegion)
       const countriesSearch = countriesToShow.map(country => Object.assign({}, { key: country.name }, { value: country.name }))
-      localSetState({ ...localState, loaded: true, countriesToShow, countriesSearch }) // TODO: react-search-box onlys updated on component mount
+      localSetState({ ...localState, loaded: true, countriesToShow: shuffle(countriesToShow), countriesSearch })
     }
   }, [countriesOptions, selectedRegion])
 
@@ -66,6 +66,7 @@ const Home = () => {
         <div className="row search-filter">
           <div className={`col s12 m6 l5 xl5 search search--${theme}`}>
             <Search
+              key={countriesSearch[0].key}
               placeholder="Search for a country..."
               data={countriesSearch}
               onSelect={(selection) => handleSearchCountry(selection, navigate)}

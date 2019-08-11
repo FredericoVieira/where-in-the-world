@@ -63,7 +63,7 @@
 /******/
 /******/ 	var hotApplyOnUpdate = true;
 /******/ 	// eslint-disable-next-line no-unused-vars
-/******/ 	var hotCurrentHash = "55b53fb78a51dc00592b";
+/******/ 	var hotCurrentHash = "870d738729e88b27b528";
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule;
@@ -65244,11 +65244,13 @@ const Home = () => {
   const [globalState, globalActions] = Object(_store__WEBPACK_IMPORTED_MODULE_4__["default"])();
   const [localState, localSetState] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])({
     loaded: false,
-    countriesToShow: []
+    countriesToShow: [],
+    countriesSearch: []
   });
   const {
     loaded,
-    countriesToShow
+    countriesToShow,
+    countriesSearch
   } = localState;
   const {
     theme
@@ -65274,10 +65276,16 @@ const Home = () => {
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(() => {
     if (countriesOptions.length > 0) {
       const countriesToShow = selectedRegion === 'All' ? countriesOptions : countriesOptions.filter(country => country.region === selectedRegion);
+      const countriesSearch = countriesToShow.map(country => Object.assign({}, {
+        key: country.name
+      }, {
+        value: country.name
+      }));
       localSetState({ ...localState,
         loaded: true,
-        countriesToShow
-      });
+        countriesToShow,
+        countriesSearch
+      }); // TODO: react-search-box onlys updated on component mount
     }
   }, [countriesOptions, selectedRegion]);
 
