@@ -63,7 +63,7 @@
 /******/
 /******/ 	var hotApplyOnUpdate = true;
 /******/ 	// eslint-disable-next-line no-unused-vars
-/******/ 	var hotCurrentHash = "c7c6e49a18c917f071b3";
+/******/ 	var hotCurrentHash = "55b53fb78a51dc00592b";
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule;
@@ -65244,13 +65244,11 @@ const Home = () => {
   const [globalState, globalActions] = Object(_store__WEBPACK_IMPORTED_MODULE_4__["default"])();
   const [localState, localSetState] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])({
     loaded: false,
-    countriesToShow: [],
-    countriesSearch: []
+    countriesToShow: []
   });
   const {
     loaded,
-    countriesToShow,
-    countriesSearch
+    countriesToShow
   } = localState;
   const {
     theme
@@ -65275,32 +65273,13 @@ const Home = () => {
   }, []);
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(() => {
     if (countriesOptions.length > 0) {
-      const countriesToShow = Object(_utils_shuffler__WEBPACK_IMPORTED_MODULE_7__["shuffle"])(countriesOptions);
-      const countriesSearch = countriesOptions.map(country => Object.assign({}, {
-        key: country.name
-      }, {
-        value: country.name
-      }));
-      localSetState({ ...localState,
-        loaded: true,
-        countriesToShow,
-        countriesSearch
-      });
-    } else {
-      localSetState({ ...localState,
-        loaded: false
-      });
-    }
-  }, [countriesOptions]);
-  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(() => {
-    if (selectedRegion) {
       const countriesToShow = selectedRegion === 'All' ? countriesOptions : countriesOptions.filter(country => country.region === selectedRegion);
       localSetState({ ...localState,
         loaded: true,
         countriesToShow
       });
     }
-  }, [selectedRegion]); // TODO: Search over exibited countries; Search component not update on countriesSearch array updated
+  }, [countriesOptions, selectedRegion]);
 
   const handleCountry = country => react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     key: country.name,

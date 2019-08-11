@@ -27,20 +27,11 @@ const Home = () => {
 
   useEffect(() => {
     if (countriesOptions.length > 0) {
-      const countriesToShow = shuffle(countriesOptions)
-      const countriesSearch = countriesOptions.map(country => Object.assign({}, { key: country.name }, { value: country.name }))
-      localSetState({ ...localState, loaded: true, countriesToShow, countriesSearch })
-    } else {
-      localSetState({ ...localState, loaded: false })
+      const countriesToShow = selectedRegion === 'All' ? countriesOptions : countriesOptions.filter(country => country.region === selectedRegion)
+      const countriesSearch = countriesToShow.map(country => Object.assign({}, { key: country.name }, { value: country.name }))
+      localSetState({ ...localState, loaded: true, countriesToShow, countriesSearch }) // TODO: react-search-box onlys updated on component mount
     }
-  }, [countriesOptions])
-
-  useEffect(() => {
-      if (selectedRegion) {
-        const countriesToShow = selectedRegion === 'All' ? countriesOptions : countriesOptions.filter(country => country.region === selectedRegion)
-        localSetState({ ...localState, loaded: true, countriesToShow })
-      }
-  }, [selectedRegion]) // TODO: Search over exibited countries; Search component not update on countriesSearch array updated
+  }, [countriesOptions, selectedRegion])
 
   const handleCountry = (country) => (
     <div key={country.name} className="col s12 m6 l4 xl3">
