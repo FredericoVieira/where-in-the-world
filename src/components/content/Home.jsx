@@ -27,7 +27,7 @@ const Home = () => {
 
   useEffect(() => {
     if (countriesOptions.length > 0) {
-      const countriesToShow = selectedRegion === 'All' ? countriesOptions : countriesOptions.filter(country => country.region === selectedRegion)
+      const countriesToShow = selectedRegion === 'All' || selectedRegion.value === 'All' ? countriesOptions : countriesOptions.filter(country => country.region === selectedRegion.value)
       const countriesSearch = countriesToShow.map(country => Object.assign({}, { key: country.name }, { value: country.name }))
       localSetState({ ...localState, loaded: true, countriesToShow: shuffle(countriesToShow), countriesSearch })
     }

@@ -7,5 +7,5 @@ export const setRegion = (store, region) => {
 }
 
 export const handleFilterRegion = (store, selection) => {
-  setRegion(store, selection.value)
+  setRegion(store, selection)
 }
