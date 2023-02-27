@@ -1,5 +1,5 @@
 const configurations = {
-  theme: 'light'
-}
+  theme: "light",
+};
 
-export default configurations
+export default configurations;

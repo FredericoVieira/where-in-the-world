@@ -1,69 +1,73 @@
-const path = require('path')
-const webpack = require('webpack')
-const HtmlWebPackPlugin = require('html-webpack-plugin')
+const path = require("path");
+const webpack = require("webpack");
+const HtmlWebPackPlugin = require("html-webpack-plugin");
 
 module.exports = {
   entry: {
-    main: ['webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000', './src/index.jsx']
+    main: [
+      "webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000",
+      "./src/index.jsx",
+    ],
   },
   output: {
-    path: path.join(__dirname, 'dist'),
-    publicPath: '/',
-    filename: '[name].js'
+    path: path.join(__dirname, "dist"),
+    publicPath: "/",
+    filename: "[name].js",
   },
-  mode: 'development',
-  target: 'web',
-  devtool: '#source-map',
+  mode: "development",
+  target: "web",
+  devtool: "#source-map",
   resolve: {
-    extensions: ['.js', '.jsx']
+    extensions: [".js", ".jsx"],
   },
   module: {
     rules: [
       {
-        enforce: 'pre',
+        enforce: "pre",
         test: /\.js$/,
         exclude: /node_modules/,
-        loader: 'eslint-loader',
+        loader: "eslint-loader",
         options: {
           emitWarning: true,
           failOnError: false,
-          failOnWarning: false
-        }
+          failOnWarning: false,
+        },
       },
       {
         test: /\.jsx?$/,
         exclude: /node_modules/,
-        loader: 'babel-loader',
+        loader: "babel-loader",
       },
       {
         test: /\.html$/,
         use: [
           {
-            loader: 'html-loader',
-          }
-        ]
+            loader: "html-loader",
+          },
+        ],
       },
       {
         test: /\.scss$/,
-        use: ['style-loader', 'css-loader', 'sass-loader']
+        use: ["style-loader", "css-loader", "sass-loader"],
       },
       {
-       test: /\.(png|svg|jpg|gif)$/,
-       use: ['file-loader']
+        test: /\.(png|svg|jpg|gif)$/,
+        use: ["file-loader"],
       },
       {
         test: /\.mp4$/,
-        use: ['url-loader']
-      }
-    ]
+        use: ["url-loader"],
+      },
+    ],
   },
   plugins: [
     new HtmlWebPackPlugin({
-      template: './src/html/index.html',
-      filename: './index.html',
-      excludeChunks: [ 'server' ]
+      template: "./src/html/index.html",
+      filename: "./index.html",
+      excludeChunks: ["server"],
+      favicon: "./src/favicon.png",
     }),
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoEmitOnErrorsPlugin()
-  ]
-}
+    new webpack.NoEmitOnErrorsPlugin(),
+  ],
+};

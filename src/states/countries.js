@@ -1,8 +1,8 @@
 const countries = {
   options: [],
   selected: {
-    name: null
-  }
-}
+    name: null,
+  },
+};
 
-export default countries
+export default countries;

@@ -1,1 +1,1 @@
-export const baseURL = 'https://restcountries.eu/rest/v2/'
+export const baseURL = "https://restcountries.com/v2/";

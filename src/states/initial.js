@@ -1,11 +1,11 @@
-import configurations from './configurations'
-import countries from './countries'
-import regions from './regions'
+import configurations from "./configurations";
+import countries from "./countries";
+import regions from "./regions";
 
 const initialState = {
   configurations,
   countries,
-  regions
-}
+  regions,
+};
 
-export default initialState
+export default initialState;
